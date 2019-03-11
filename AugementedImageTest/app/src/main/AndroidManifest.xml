@@ -28,10 +28,6 @@
             android:name="com.google.ar.core"
             android:value="required" />
 
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
-
         <activity
             android:name=".Initial_Page_Activity"
             android:theme="@style/Theme.AppCompat.Translucent"></activity>
@@ -40,20 +36,15 @@
         </activity>
         <!-- R Building -->
         <activity android:name=".RBuilding"
-            android:parentActivityName="MainActivity"
             android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity android:name=".RArtsAndHumanitiesMain"
-            android:parentActivityName="MainActivity"
             android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity android:name=".RArtsAndHumanitiesDepartments"
-            android:parentActivityName="MainActivity"
             android:theme="@style/Theme.AppCompat.Translucent"/>
         <!-- S building -->
         <activity android:name=".SBuilding"
-            android:parentActivityName="MainActivity"
             android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity android:name=".SScienceDepartments"
-            android:parentActivityName="MainActivity"
             android:theme="@style/Theme.AppCompat.Translucent"/>
 
     </application>
