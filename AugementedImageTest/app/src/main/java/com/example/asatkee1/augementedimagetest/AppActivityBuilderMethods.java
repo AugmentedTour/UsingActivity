@@ -1,11 +1,13 @@
 package com.example.asatkee1.augementedimagetest;
 
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Gravity;
@@ -305,10 +307,10 @@ public class AppActivityBuilderMethods extends AppCompatActivity {
                 startActivity(startChildActivityIntent);
                 return true;
             case R.id.back_button:
-                //Intent startBackActivityIntent = new Intent(this, BuildingSelect.class);
-                Intent startBackActivityIntent = new Intent(this, RBuilding.class);
-                startActivity(startBackActivityIntent);
-                return true;
+//                Intent startBackActivityIntent = new Intent(this, MainActivity.class);
+//                startActivity(startBackActivityIntent);
+                NavUtils.navigateUpFromSameTask(this);
+
             default:
                 // This means that the pressed button wasn't recognized
                 // Invoke the superclass to handle it.

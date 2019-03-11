@@ -35,7 +35,7 @@ public class RArtsAndHumanitiesDepartments extends AppActivityBuilderMethods {
 
         // --- Gotta put these in the onCreate method ---
         LinearLayout topLayout = (LinearLayout) findViewById(R.id.topLayout);
-        LinearLayout bodyLayout = (LinearLayout) findViewById(R.id.bodyLayout);
+        //LinearLayout bodyLayout = (LinearLayout) findViewById(R.id.bodyLayout);
 
 
         // --- topLayout ---
@@ -68,7 +68,7 @@ public class RArtsAndHumanitiesDepartments extends AppActivityBuilderMethods {
         protected void onPostExecute(ArrayList result) {
             LinearLayout bodyLayout = (LinearLayout) findViewById(R.id.bodyLayout);
             for (int i = 0; i < result.size(); i = i + 2) {
-                linkButtonBuilder(result.get(i).toString(), result.get(i+1).toString(),false,bodyLayout);
+                linkButtonBuilder(result.get(i).toString(), result.get(i+1).toString(),true,bodyLayout);
             }
         }
 

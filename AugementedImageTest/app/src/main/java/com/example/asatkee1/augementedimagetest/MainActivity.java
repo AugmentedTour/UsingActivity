@@ -48,23 +48,25 @@ public class MainActivity extends AppCompatActivity {
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING){
                 Log.d("trucking state matched picture", "picture was founded!");
 
-                if ((augmentedImage.getName().equals("H_letter")|| augmentedImage.getName().equals("H_letter_1") ||
+                if ((augmentedImage.getName().equals("H_letter_1") ||
                         augmentedImage.getName().equals("Housing"))){
-
                     Log.d("image name was matched", "model was put on picture!");
 
-                    //start the transperent activity
+                    //start the transparent activity
                     Intent myIntent = new Intent(MainActivity.this, RBuilding.class);
                     MainActivity.this.startActivity(myIntent);
-                    //shouldAddModel = false;
                 } else if ((augmentedImage.getName().equals("math_book"))){
-
                     Log.d("image name was matched", "model was put on picture!");
 
-                    //start the transperent activity
+                    //start the transparent activity
                     Intent myIntent = new Intent(MainActivity.this, SBuilding.class);
                     MainActivity.this.startActivity(myIntent);
-                    //shouldAddModel = false;
+                } else if ((augmentedImage.getName().equals("H_letter"))){
+                    Log.d("image name was matched", "model was put on picture!");
+
+                    //start the transparent activity
+                    Intent myIntent = new Intent(MainActivity.this, SBuilding.class);
+                    MainActivity.this.startActivity(myIntent);
                 }
             }
         }
@@ -92,50 +94,31 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     private ArrayList<Bitmap> loadAugmentedImage(){
         ArrayList <Bitmap> bitmaps = new ArrayList<Bitmap>();
-        try (InputStream is = getAssets().open("H_letter.jpg")){
-            bitmaps.add(BitmapFactory.decodeStream(is));
-        }
-        catch (IOException e){
-            Log.e("ImageLoad", "IO Exception while loading", e);
-        }
-
-        try (InputStream is = getAssets().open("H_letter_1.JPG")){
-            bitmaps.add(BitmapFactory.decodeStream(is));
-        }
-        catch (IOException e){
-            Log.e("ImageLoad", "IO Exception while loading", e);
-        }
-
-        try (InputStream is = getAssets().open("Housing.jpg")){
-            bitmaps.add(BitmapFactory.decodeStream(is));
-        }
-        catch (IOException e){
-            Log.e("ImageLoad", "IO Exception while loading", e);
-        }
-
-        try (InputStream is = getAssets().open("math_book.jpg")){
-            bitmaps.add(BitmapFactory.decodeStream(is));
-        }
-        catch (IOException e){
-            Log.e("ImageLoad", "IO Exception while loading", e);
-        }
-
-        //Buffer
-        try (InputStream is = getAssets().open("H_letter_2.JPG")){
-            bitmaps.add(BitmapFactory.decodeStream(is));
-        }
-        catch (IOException e){
-            Log.e("ImageLoad", "IO Exception while loading", e);
-        }
+        addAugmentedImage(bitmaps, "H_letter.jpg");
+        addAugmentedImage(bitmaps, "H_letter_1.JPG");
+        addAugmentedImage(bitmaps, "Housing.jpg");
+        addAugmentedImage(bitmaps, "math_book.jpg");
+        //buffer
+        addAugmentedImage(bitmaps, "H_letter_2.JPG");
 
         if(!bitmaps.isEmpty()){
             return bitmaps;
         }
         return null;
     }
+
+    //adds the sent image to the sent ArrayList
+    private void addAugmentedImage(ArrayList<Bitmap> bitmaps, String fileName) {
+        try (InputStream is = getAssets().open(fileName)){
+            bitmaps.add(BitmapFactory.decodeStream(is));
+        }
+        catch (IOException e){
+            Log.e("ImageLoad", "IO Exception while loading", e);
+        }
+    }
+
 
 
 
