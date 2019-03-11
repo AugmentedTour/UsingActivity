@@ -40,22 +40,66 @@ public class MainActivity extends AppCompatActivity {
         Frame frame = arFragment.getArSceneView().getArFrame();
 
         Collection<AugmentedImage> augmentedImages = frame.getUpdatedTrackables(AugmentedImage.class);
-        Log.d("size", "size is" + augmentedImages.size());
 
         for (AugmentedImage augmentedImage : augmentedImages){
-            Log.d("Debugging method update frame", "Update frame was called!");
 
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING){
-                Log.d("trucking state matched picture", "picture was founded!");
 
                 if ((augmentedImage.getName().equals("H_letter")|| augmentedImage.getName().equals("H_letter_1") ||
                         augmentedImage.getName().equals("Housing"))){
 
-                    Log.d("image name was matched", "model was put on picture!");
+                    //start the transperent activity
+//                    Intent myIntent = new Intent(MainActivity.this, RBuilding.class);
+//                    MainActivity.this.startActivity(myIntent);
+
+                } else if ((augmentedImage.getName().equals("E_Building"))) {
 
                     //start the transperent activity
-                    Intent myIntent = new Intent(MainActivity.this, Initial_Page_Activity.class);
+                    Intent myIntent = new Intent(MainActivity.this, EBuilding.class);
                     MainActivity.this.startActivity(myIntent);
+
+                }else if ((augmentedImage.getName().equals("R_letter"))) {
+
+                    //start the transperent activity
+                    Intent myIntent = new Intent(MainActivity.this, RBuilding.class);
+                    MainActivity.this.startActivity(myIntent);
+
+                }else if ((augmentedImage.getName().equals("L_letter"))){
+
+                        //start the transperent activity
+                        Intent myIntent = new Intent(MainActivity.this, L_building.class);
+                        MainActivity.this.startActivity(myIntent);
+
+                }else if ((augmentedImage.getName().equals("F_Building"))){
+
+                    //start the transperent activity
+                    Intent myIntent = new Intent(MainActivity.this, FBuilding.class);
+                    MainActivity.this.startActivity(myIntent);
+
+                }else if ((augmentedImage.getName().equals("G_Building"))){
+
+                    //start the transperent activity
+                    Intent myIntent = new Intent(MainActivity.this, GBuilding.class);
+                    MainActivity.this.startActivity(myIntent);
+
+                }else if ((augmentedImage.getName().equals("K_Building"))){
+
+                    //start the transperent activity
+                    Intent myIntent = new Intent(MainActivity.this, KBuilding.class);
+                    MainActivity.this.startActivity(myIntent);
+
+                }else if ((augmentedImage.getName().equals("Q_Building"))){
+
+                    //start the transperent activity
+                    Intent myIntent = new Intent(MainActivity.this, QBuilding.class);
+                    MainActivity.this.startActivity(myIntent);
+
+                }else if ((augmentedImage.getName().equals("U_Building"))){
+
+                   //start the transperent activity
+                    Intent myIntent = new Intent(MainActivity.this, UBuilding.class);
+                    MainActivity.this.startActivity(myIntent);
+
                 }
             }
         }
@@ -76,8 +120,17 @@ public class MainActivity extends AppCompatActivity {
 
         augmentedImageDatabase = new AugmentedImageDatabase(session);
         augmentedImageDatabase.addImage("H_letter", bitmap.get(0));
-        augmentedImageDatabase.addImage("H_letter_1", bitmap.get(1));
-       // augmentedImageDatabase.addImage("Housing", bitmap.get(2));
+        augmentedImageDatabase.addImage("R_letter", bitmap.get(1));
+        augmentedImageDatabase.addImage("L_letter", bitmap.get(2));
+        augmentedImageDatabase.addImage("Housing", bitmap.get(3));
+        augmentedImageDatabase.addImage("E_Building", bitmap.get(4));
+        augmentedImageDatabase.addImage("F_Building", bitmap.get(5));
+        augmentedImageDatabase.addImage("G_Building", bitmap.get(6));
+        augmentedImageDatabase.addImage("K_Building", bitmap.get(7));
+        augmentedImageDatabase.addImage("Q_Building", bitmap.get(8));
+        augmentedImageDatabase.addImage("U_Building", bitmap.get(9));
+
+
         config.setAugmentedImageDatabase(augmentedImageDatabase);
         return true;
     }
@@ -91,25 +144,68 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException e){
             Log.e("ImageLoad", "IO Exception while loading", e);
         }
-        try (InputStream is = getAssets().open("H_letter_1.jpg")){
+        try (InputStream is = getAssets().open("R_letter.jpg")){
             bitmaps.add(BitmapFactory.decodeStream(is));
         }
         catch (IOException e){
             Log.e("ImageLoad", "IO Exception while loading", e);
         }
+        try (InputStream is = getAssets().open("L_letter.jpg")){
+            bitmaps.add(BitmapFactory.decodeStream(is));
+        }
+        catch (IOException e){
+            Log.e("ImageLoad", "IO Exception while loading", e);
+        }
+
         try (InputStream is = getAssets().open("Housing.jpg")){
             bitmaps.add(BitmapFactory.decodeStream(is));
         }
         catch (IOException e){
             Log.e("ImageLoad", "IO Exception while loading", e);
         }
+
+        try (InputStream is = getAssets().open("E_Building.jpg")){
+            bitmaps.add(BitmapFactory.decodeStream(is));
+        }
+        catch (IOException e){
+            Log.e("ImageLoad", "IO Exception while loading", e);
+        }
+        try (InputStream is = getAssets().open("F_Building.jpg")){
+            bitmaps.add(BitmapFactory.decodeStream(is));
+        }
+        catch (IOException e){
+            Log.e("ImageLoad", "IO Exception while loading", e);
+        }
+        try (InputStream is = getAssets().open("G_Building.jpg")){
+            bitmaps.add(BitmapFactory.decodeStream(is));
+        }
+        catch (IOException e){
+            Log.e("ImageLoad", "IO Exception while loading", e);
+        }
+        try (InputStream is = getAssets().open("K_Building.jpg")){
+            bitmaps.add(BitmapFactory.decodeStream(is));
+        }
+        catch (IOException e){
+            Log.e("ImageLoad", "IO Exception while loading", e);
+        }
+        try (InputStream is = getAssets().open("Q_Building.jpg")){
+            bitmaps.add(BitmapFactory.decodeStream(is));
+        }
+        catch (IOException e){
+            Log.e("ImageLoad", "IO Exception while loading", e);
+        }
+        try (InputStream is = getAssets().open("U_Building.jpg")){
+            bitmaps.add(BitmapFactory.decodeStream(is));
+        }
+        catch (IOException e){
+            Log.e("ImageLoad", "IO Exception while loading", e);
+        }
+
         if(!bitmaps.isEmpty()){
             return bitmaps;
         }
         return null;
     }
-
-
 
 
 

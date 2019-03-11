@@ -12,6 +12,7 @@ public class CustomArFragment extends ArFragment {
 
         Config config = new Config(session);
         config.setUpdateMode(Config.UpdateMode.LATEST_CAMERA_IMAGE);
+        config.setFocusMode(Config.FocusMode.AUTO);
         session.configure(config);
         this.getArSceneView().setupSession(session);
         if(((MainActivity)getActivity()).setupAugmentedImageDb(config, session)){
