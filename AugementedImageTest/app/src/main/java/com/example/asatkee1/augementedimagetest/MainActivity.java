@@ -8,12 +8,18 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
@@ -23,6 +29,7 @@ import com.google.ar.core.AugmentedImageDatabase;
 import com.google.ar.core.Config;
 import com.google.ar.core.Frame;
 import com.google.ar.core.Plane;
+import com.google.ar.core.Pose;
 import com.google.ar.core.Session;
 import com.google.ar.core.TrackingState;
 import com.google.ar.core.exceptions.CameraNotAvailableException;
@@ -35,8 +42,10 @@ import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.Scene;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
@@ -57,7 +66,7 @@ import uk.co.appoly.arcorelocation.utils.ARLocationPermissionHelper;
 import static com.google.ar.core.ArCoreApk.InstallStatus.INSTALLED;
 import static com.google.ar.core.ArCoreApk.InstallStatus.INSTALL_REQUESTED;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppActivityBuilderMethods {
 
     private ArFragment arFragment;
     private boolean shouldAddModel = true;
@@ -66,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
     private ArSceneView arSceneView;
     private boolean installRequested;
     private boolean hasFinishedLoading = false;
+    private static Session session = null;
+
+
+    TextView mainInfo;
+    TextView officeHours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,11 +120,20 @@ public class MainActivity extends AppCompatActivity {
                     Frame frame = arFragment.getArSceneView().getArFrame();
             if (locationScene == null) {
                 locationScene = new LocationScene(this, this, arFragment.getArSceneView());
-                locationScene.mLocationMarkers.add(
-                        new LocationMarker(
-                                -122.1492074519847,
-                                47.58584620689264,
-                                 getAndy()));
+
+                LocationMarker hello = new LocationMarker(-122.1490833,
+                        47.5858055,
+                        getAndy());
+
+                locationScene.mLocationMarkers.add(hello);
+
+
+
+//                locationScene.mLocationMarkers.add(
+//                        new LocationMarker(
+//                                -122.1492074519847,
+//                                47.58584620689264,
+//                                 getAndy()));
                 /*
                 locationScene.mLocationMarkers.add(
                         new LocationMarker(
@@ -220,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static Session createArSession(Activity activity, boolean installRequested)
             throws UnavailableException {
-        Session session = null;
+        //Session session = null;
         // if we have the camera permission, create the session
         if (ARLocationPermissionHelper.hasPermission(activity)) {
             switch (ArCoreApk.getInstance().requestInstall(activity, !installRequested)) {
@@ -277,9 +300,89 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(
                     c, "Location marker is touched.", Toast.LENGTH_LONG)
                     .show();
+            addFloatingAnchor();
         });
         return base;
     }
+
+    private void addFloatingAnchor() {
+        Frame frame = arSceneView.getArFrame();
+
+        Session session = arFragment.getArSceneView().getSession();
+        Anchor myAnchor = session.createAnchor(frame.getCamera().getDisplayOrientedPose()
+                .compose(Pose.makeTranslation(0, 0, -1f))
+                .extractTranslation());
+        AnchorNode anchorNode = new AnchorNode(myAnchor);
+        anchorNode.setRenderable(andyRenderable);
+
+        placeXML(arFragment, myAnchor, R.layout.hello_instructions);
+
+        //anchorNode.setParent(arFragment.getArSceneView().getScene());
+
+    }
+
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void placeXML(ArFragment arFragment, Anchor anchor, int file) {
+        ViewGroup group = (ViewGroup) View.inflate(this, R.layout.activity_main2, null);
+        LinearLayout topLayout = group.findViewById(R.id.topLayout);
+        LinearLayout bodyLayout = group.findViewById(R.id.bodyLayout);
+        phoneBuilder("HR", "564-2274(425)", bodyLayout);
+
+        titleBuilder("R Building", topLayout);
+        hasAllGendersBathroom(topLayout);
+        hasComputers(topLayout);
+
+        mainInfo = textViewBuilder("Loading...", bodyLayout);
+        officeHours = textViewBuilder("Loading...", bodyLayout);
+        officeHours.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                anchor.detach();
+            }
+        });
+
+        textViewBuilder("Human Resources (HR): Location R130(425) | Fax 564-3173", bodyLayout);
+
+        //-------test button------
+//            Button button = new Button(this);
+//            button.setText("Kill");
+//            button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 150));
+//            button.setPadding(5,5,5,5);
+//            button.setAllCaps(false);
+//            button.setBackgroundResource(R.drawable.important);
+//
+//            button.setTextColor(Color.WHITE);
+//
+//            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
+//            params.topMargin = 10;
+//            params.bottomMargin = 15;
+//
+//            button.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+//                    removeNodeFromScene();
+//                }
+//            });
+//
+//            bodyLayout.addView(button);
+        //---------------------------
+
+        // --- Async task ---
+        //new ParseWebpageTask().execute(THIS_ONES_URL);
+
+
+        ViewRenderable.builder()
+                .setView(this, group)
+                .setVerticalAlignment(ViewRenderable.VerticalAlignment.BOTTOM)
+                .setHorizontalAlignment(ViewRenderable.HorizontalAlignment.LEFT)
+                .build()
+                .thenAccept(renderable -> addNodeToScene(arFragment, anchor, renderable));
+
+    }
+
+
+
 
     private void placeObject(ArFragment fragment, Anchor anchor, Uri model){
         ModelRenderable.builder()
