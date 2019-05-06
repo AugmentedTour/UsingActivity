@@ -127,6 +127,8 @@ public class MainActivity extends AppActivityBuilderMethods {
 
                 locationScene.mLocationMarkers.add(hello);
 
+                //hello.node.setEnabled();
+
 
 
 //                locationScene.mLocationMarkers.add(
