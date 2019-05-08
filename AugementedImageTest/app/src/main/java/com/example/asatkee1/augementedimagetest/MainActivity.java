@@ -121,11 +121,14 @@ public class MainActivity extends AppActivityBuilderMethods {
             if (locationScene == null) {
                 locationScene = new LocationScene(this, this, arFragment.getArSceneView());
 
-                LocationMarker hello = new LocationMarker(-122.1490833,
-                        47.5858055,
+                LocationMarker hello = new LocationMarker(-122.1486981,
+                        47.5858593,
                         getAndy());
 
                 locationScene.mLocationMarkers.add(hello);
+
+                //-122.1490833,
+                //47.5858055
 
                 //hello.node.setEnabled();
 
