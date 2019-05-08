@@ -10,10 +10,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
@@ -22,7 +25,6 @@ import com.google.ar.core.AugmentedImage;
 import com.google.ar.core.AugmentedImageDatabase;
 import com.google.ar.core.Config;
 import com.google.ar.core.Frame;
-import com.google.ar.core.Plane;
 import com.google.ar.core.Session;
 import com.google.ar.core.TrackingState;
 import com.google.ar.core.exceptions.CameraNotAvailableException;
@@ -35,8 +37,10 @@ import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
@@ -44,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -62,10 +67,13 @@ public class MainActivity extends AppCompatActivity {
     private ArFragment arFragment;
     private boolean shouldAddModel = true;
     private LocationScene locationScene;
-    private ModelRenderable andyRenderable;
+    private Renderable andyRenderable;
+    private ViewRenderable exampleLayoutRenderable;
     private ArSceneView arSceneView;
     private boolean installRequested;
     private boolean hasFinishedLoading = false;
+
+    private LocationMarker shown = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +85,18 @@ public class MainActivity extends AppCompatActivity {
         arSceneView = arFragment.getArSceneView();
         arFragment.getPlaneDiscoveryController().hide();
         arFragment.getPlaneDiscoveryController().setInstructionView(null);
+
+
         CompletableFuture<ModelRenderable> andy = ModelRenderable.builder()
                 .setSource(this, Uri.parse("Airplane.sfb"))
                 .build();
-        CompletableFuture.allOf(andy)
+
+        CompletableFuture<ViewRenderable> exampleLayout =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.example_layout)
+                        .build();
+
+        CompletableFuture.allOf(andy, exampleLayout )
                 .handle(
                         (notUsed, throwable) ->
                         {
@@ -90,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 andyRenderable = andy.get();
                                 Toast.makeText(this, "I see the marker", Toast.LENGTH_SHORT).show();
+                                exampleLayoutRenderable = exampleLayout.get();
+                                Toast.makeText(this, "I see layout marker", Toast.LENGTH_SHORT).show();
                                 hasFinishedLoading = true;
 
                             } catch (InterruptedException | ExecutionException ex) {
@@ -98,53 +116,89 @@ public class MainActivity extends AppCompatActivity {
                             return null;
                         });
 
+
         arSceneView.getScene().addOnUpdateListener(
                 frameTime -> {
-                    if (!hasFinishedLoading) {
+                    if(!hasFinishedLoading){
                         return;
                     }
                     Frame frame = arFragment.getArSceneView().getArFrame();
             if (locationScene == null) {
                 locationScene = new LocationScene(this, this, arFragment.getArSceneView());
-                locationScene.mLocationMarkers.add(
+
+                //////////////
+                LocationMarker locationMarker1 =
                         new LocationMarker(
-                                -122.1492074519847,
-                                47.58584620689264,
-                                 getAndy()));
-                /*
-                locationScene.mLocationMarkers.add(
+                                -122.133328,
+                                47.571712,
+                                getAndy());
+                LocationMarker locationMarker2 =
                         new LocationMarker(
-                        -122.148936,
-                        47.585708,
-                        getAndy()));
+                                -122.148870,
+                                47.585989,
+                                getAndy());
+                //////////////
+
+                List<LocationMarker> markers =
+                        new ArrayList<>(2);
+
+                markers.add(locationMarker1);
+                markers.add(locationMarker2);
+
+                locationMarker1.setRenderEvent(
+                        new SingletonRenderer(locationScene, markers, locationMarker1, "1")
+                );
+
+                locationMarker2.setRenderEvent(
+                        new SingletonRenderer(locationScene, markers, locationMarker2, "2")
+                );
 
                 locationScene.mLocationMarkers.add(
-                        new LocationMarker(
-                                -122.149160,
-                                47.585941,
-                                getAndy()));
+                        locationMarker1);
+                locationScene.mLocationMarkers.add(
+                        locationMarker2);
 
-                locationScene.mLocationMarkers.add(
-                        new LocationMarker(
-                                -122.149200,
-                                47.585949,
-                                getAndy()));
-                locationScene.mLocationMarkers.add(
-                        new LocationMarker(
-                                -122.149190,
-                                47.585942,
-                                getAndy()));
+                LocationMarker layoutLocationMarkerL1 = new LocationMarker(
+                        -122.148871,
+                        47.585908,
+                        getExampleView()
+                );
+                layoutLocationMarkerL1.setRenderEvent(new LocationNodeRender() {
+                    @Override
+                    public void render(LocationNode node) {
+                        View eView = exampleLayoutRenderable.getView();
+                        TextView distanceTextView = eView.findViewById(R.id.textView2);
+                        distanceTextView.setText(node.getDistance() + "M");
+                    }
+                });
 
-                //change lat and long
-                locationScene.mLocationMarkers.add(
-                        new LocationMarker(
-                                -122.148936,
-                                47.585708,
-                                getAndy()));
-                                */
+//
+//                locationScene.mLocationMarkers.add(
+//                        new LocationMarker(
+//                                -122.149160,
+//                                47.585941,
+//                                getAndy()));
+//
+//                locationScene.mLocationMarkers.add(
+//                        new LocationMarker(
+//                                -122.149200,
+//                                47.585949,
+//                                getAndy()));
+//                locationScene.mLocationMarkers.add(
+//                        new LocationMarker(
+//                                -122.149190,
+//                                47.585942,
+//                                getAndy()));
+//
+//                //change lat and long
+//                locationScene.mLocationMarkers.add(
+//                        new LocationMarker(
+//                                -122.148936,
+//                                47.585708,
+//                                getAndy()));
+                //locationScene.mLocationMarkers.add(layoutLocationMarkerL1);
 
             }
-
 
 
 
@@ -153,10 +207,81 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-
         });
         ARLocationPermissionHelper.requestPermission(this);
 
+    }
+
+    class SingletonRenderer implements LocationNodeRender
+    {
+        private final List<LocationMarker> all;
+        private final LocationMarker parent;
+        private final LocationScene scene;
+        private final String name;
+
+        public SingletonRenderer(
+                LocationScene scene, List<LocationMarker> all, LocationMarker parent, String name) {
+            this.scene = scene;
+            this.all = all;
+            this.parent = parent;
+            this.name = name;
+        }
+
+        @Override
+        public void render(LocationNode locationNode) {
+            boolean isVisible = isVisible(this.parent, arFragment);
+
+            if (shown == null && isVisible) {
+                // hide other
+                shown = this.parent;
+
+                for(LocationMarker lm : this.all) {
+                    if (lm != this.parent) {
+                        hideMarker(lm);
+                    }
+                }
+
+                Log.i("Render", "Appeared: " + this.name);
+            }
+
+            if (shown == this.parent && !isVisible) {
+                shown = null;
+
+                for(LocationMarker lm : this.all) {
+                    lm.setOnlyRenderWhenWithin(Integer.MAX_VALUE);
+                }
+
+                this.scene.refreshAnchors();
+
+                Log.i("Render", "Hidden: " + this.name);
+            }
+
+
+            if (shown == this.parent) {
+                Log.i("Render", "Shown: " + this.name);
+            }
+        }
+    }
+
+    private boolean isVisible(LocationMarker locationMarker, ArFragment arFragment) {
+        Vector3 worldPosition = locationMarker.anchorNode.getWorldPosition();
+        ArSceneView sceneView = arFragment.getArSceneView();
+
+        // looks like there is bug in worldToScreenPoint with horisontal orientation
+        Vector3 screenPoint = sceneView.getScene().getCamera().worldToScreenPoint(worldPosition);
+
+        return (screenPoint.x > 0 &&
+                screenPoint.x < sceneView.getWidth() &&
+                screenPoint.y > 0 &&
+                screenPoint.y < sceneView.getHeight());
+    }
+
+
+    private void hideMarker(LocationMarker locationMarker) {
+        locationMarker.anchorNode.getAnchor().detach();
+        locationMarker.anchorNode.setEnabled(false);
+
+        locationMarker.setOnlyRenderWhenWithin(0);
     }
 
     /**
@@ -243,7 +368,29 @@ public class MainActivity extends AppCompatActivity {
      * Make sure we call locationScene.pause();
      */
 
-    private void onUpdateFrame(FrameTime frameTime) {
+    private void onUpdateFrame(FrameTime frameTim) {
+        Frame frame = arFragment.getArSceneView().getArFrame();
+
+        CompletableFuture<ModelRenderable> andy = ModelRenderable.builder()
+                .setSource(this, Uri.parse("Airplane.sfb"))
+                .build();
+        CompletableFuture.allOf(andy)
+                .handle(
+                        (notUsed, throwable) ->
+                        {
+                            if (throwable != null) {
+                                return null;
+                            }
+                            try {
+                                andyRenderable = andy.get();
+                                Toast.makeText(this, "I see the marker", Toast.LENGTH_SHORT).show();
+
+                            } catch (InterruptedException | ExecutionException ex) {
+
+                            }
+                            return null;
+                        });
+
         /*
         Collection<AugmentedImage> augmentedImages = frame.getUpdatedTrackables(AugmentedImage.class);
         Log.d("size", "size is" + augmentedImages.size());
@@ -278,6 +425,22 @@ public class MainActivity extends AppCompatActivity {
                     c, "Location marker is touched.", Toast.LENGTH_LONG)
                     .show();
         });
+        return base;
+    }
+
+    private Node getExampleView() {
+        Node base = new Node();
+        base.setRenderable(exampleLayoutRenderable);
+        Context c = this;
+        // Add  listeners etc here
+        View eView = exampleLayoutRenderable.getView();
+        eView.setOnTouchListener((v, event) -> {
+            Toast.makeText(
+                    c, "Location marker touched.", Toast.LENGTH_LONG)
+                    .show();
+            return false;
+        });
+
         return base;
     }
 
