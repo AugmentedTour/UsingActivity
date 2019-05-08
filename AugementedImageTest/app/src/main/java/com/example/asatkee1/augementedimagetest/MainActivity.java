@@ -119,7 +119,7 @@ public class MainActivity extends AppActivityBuilderMethods {
                     }
                     Frame frame = arFragment.getArSceneView().getArFrame();
             if (locationScene == null) {
-                locationScene = new LocationScene(this, this, arFragment.getArSceneView());
+                locationScene = new LocationScene(this, arSceneView);
 
                 LocationMarker hello = new LocationMarker(-122.1490833,
                         47.5858055,
