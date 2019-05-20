@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Frame frame = arFragment.getArSceneView().getArFrame();
             if (locationScene == null) {
-                locationScene = new LocationScene(this, this, arFragment.getArSceneView());
+                locationScene = new LocationScene(this, arFragment.getArSceneView());
 
                 //////////////
                 LocationMarker locationMarker1 =
