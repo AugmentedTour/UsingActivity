@@ -262,7 +262,7 @@ public class DeviceLocation implements LocationListener {
 
             //calculate distance traveled in both x and y direction
             if (currentSpeed > 0) {
-                float distance = currentSpeed * timeSinceLastUpdate;
+                float distance = currentSpeed * (timeSinceLastUpdate/1000000);
                 double xDistance = 0;
                 double yDistance = 0;
 
@@ -299,9 +299,6 @@ public class DeviceLocation implements LocationListener {
         }
 
         lastTimeUpdated = (long) (SystemClock.elapsedRealtimeNanos() / 1000000);
-
-        //now manually add the distance traveled. Note that some of this will be factored in with the average.
-        //first I'm going to check to see if this helps stabilize the anchor
 
         currentBestLocation = holder;
         locationList.add(holder);

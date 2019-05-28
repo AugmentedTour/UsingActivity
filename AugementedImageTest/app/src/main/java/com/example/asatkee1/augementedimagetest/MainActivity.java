@@ -1,32 +1,24 @@
 package com.example.asatkee1.augementedimagetest;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
 import com.google.ar.core.ArCoreApk;
-import com.google.ar.core.AugmentedImage;
 import com.google.ar.core.AugmentedImageDatabase;
 import com.google.ar.core.Config;
 import com.google.ar.core.Frame;
 import com.google.ar.core.Session;
-import com.google.ar.core.TrackingState;
 import com.google.ar.core.exceptions.CameraNotAvailableException;
 import com.google.ar.core.exceptions.UnavailableApkTooOldException;
 import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
@@ -37,7 +29,6 @@ import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Node;
-import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
@@ -47,20 +38,13 @@ import com.google.ar.sceneform.ux.TransformableNode;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import uk.co.appoly.arcorelocation.LocationMarker;
 import uk.co.appoly.arcorelocation.LocationScene;
-import uk.co.appoly.arcorelocation.rendering.LocationNode;
-import uk.co.appoly.arcorelocation.rendering.LocationNodeRender;
-import uk.co.appoly.arcorelocation.sensor.DeviceLocation;
 import uk.co.appoly.arcorelocation.utils.ARLocationPermissionHelper;
-
-import static com.google.ar.core.ArCoreApk.InstallStatus.INSTALLED;
-import static com.google.ar.core.ArCoreApk.InstallStatus.INSTALL_REQUESTED;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,12 +64,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         arFragment = (ArFragment)getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
         arSceneView = arFragment.getArSceneView();
         arFragment.getPlaneDiscoveryController().hide();
         arFragment.getPlaneDiscoveryController().setInstructionView(null);
-
 
         CompletableFuture<ModelRenderable> andy = ModelRenderable.builder()
                 .setSource(this, Uri.parse("Airplane.sfb"))
@@ -125,52 +107,141 @@ public class MainActivity extends AppCompatActivity {
                     Frame frame = arFragment.getArSceneView().getArFrame();
             if (locationScene == null) {
                 locationScene = new LocationScene(this, arFragment.getArSceneView());
+                locationScene.setAnchorRefreshInterval(500);
 
                 //////////////
-                LocationMarker locationMarker1 =
+//                LocationMarker locationMarkerL1 =
+//                        new LocationMarker(
+//                                -122.148925,
+//                                47.586036,
+//                                getAndy());
+//                LocationMarker locationMarkerL2 =
+//                        new LocationMarker(
+//                                -122.148925,
+//                                47.586015,
+//                                getAndy());
+//                LocationMarker locationMarkerL3 =
+//                        new LocationMarker(
+//                                -122.148925,
+//                                47.586005,
+//                                getAndy());
+//
+//                LocationMarker locationMarkerL4 =
+//                        new LocationMarker(
+//                                -122.148925,
+//                                47.585995,
+//                                getAndy());
+//                List<LocationMarker> markersL =
+//                        new ArrayList<>(4);
+//                markersL.add(locationMarkerL1);
+//                markersL.add(locationMarkerL2);
+//                markersL.add(locationMarkerL3);
+//                markersL.add(locationMarkerL4);
+
+
+
+                double startLLat = 47.586036;
+                double lastLLat = 47.585510;
+                List<LocationMarker> markersL =
+                        new ArrayList<>(4);
+
+                for(double i = 47.586036; i > 47.585510; i -= 0.00001){
+                    LocationMarker locationMarkerL =
+                            new LocationMarker(
+
+                                    -122.148925,
+                                    i,
+                                    getAndy());
+                    markersL.add(locationMarkerL);
+                }
+
+                //corner's markers
+                LocationMarker locationMarkerL1 =
                         new LocationMarker(
-                                -122.133328,
-                                47.571712,
+                                -122.148587,
+                                47.586003,
                                 getAndy());
-                LocationMarker locationMarker2 =
+
+                LocationMarker locationMarkerL2 =
                         new LocationMarker(
-                                -122.148870,
-                                47.585989,
+                                -122.149065,
+                                47.586041,
                                 getAndy());
+
+                LocationMarker locationMarkerL3 =
+                        new LocationMarker(
+                                -122.148592,
+                                47.585557,
+                                getAndy());
+
+                LocationMarker locationMarkerL4 =
+                        new LocationMarker(
+                                -122.149066,
+                                47.585518,
+                                getAndy());
+
+                markersL.add(locationMarkerL1);
+                markersL.add(locationMarkerL2);
+                markersL.add(locationMarkerL3);
+                markersL.add(locationMarkerL4);
+
+                new SingletonGroup(locationScene, arFragment, markersL, "Group1");
+
+                locationScene.mLocationMarkers.addAll(markersL);
+
+                //////////////
+                LocationMarker locationMarkerR1 =
+                        new LocationMarker(
+                                -122.14933,
+                                47.586128,
+                                getExampleView());
+                LocationMarker locationMarkerR2 =
+                        new LocationMarker(
+                                -122.14937,
+                                47.586128,
+                                getExampleView());
+                LocationMarker locationMarkerR3 =
+                        new LocationMarker(
+                                -122.1494,
+                                47.586128,
+                                getExampleView());
                 //////////////
 
-                List<LocationMarker> markers =
+                List<LocationMarker> markersR =
                         new ArrayList<>(2);
+//
+//                double startRLong = -122.14933;
+//                double lastRLong = -122.15007;
+//                for(double j = -122.14933; j > lastRLong; j-= 0.00001){
+//                    LocationMarker locationMarkerR =
+//                        new LocationMarker(
+//                                j,
+//                                47.586128,
+//                                getExampleView());
+//                    markersR.add(locationMarkerR);
+//                }
 
-                markers.add(locationMarker1);
-                markers.add(locationMarker2);
+                markersR.add(locationMarkerR1);
+                markersR.add(locationMarkerR2);
+                markersR.add(locationMarkerR3);
 
-                locationMarker1.setRenderEvent(
-                        new SingletonRenderer(locationScene, markers, locationMarker1, "1")
-                );
+                new SingletonGroup(locationScene, arFragment, markersR, "Group2");
 
-                locationMarker2.setRenderEvent(
-                        new SingletonRenderer(locationScene, markers, locationMarker2, "2")
-                );
+                locationScene.mLocationMarkers.addAll(markersR);
 
-                locationScene.mLocationMarkers.add(
-                        locationMarker1);
-                locationScene.mLocationMarkers.add(
-                        locationMarker2);
-
-                LocationMarker layoutLocationMarkerL1 = new LocationMarker(
-                        -122.148871,
-                        47.585908,
-                        getExampleView()
-                );
-                layoutLocationMarkerL1.setRenderEvent(new LocationNodeRender() {
-                    @Override
-                    public void render(LocationNode node) {
-                        View eView = exampleLayoutRenderable.getView();
-                        TextView distanceTextView = eView.findViewById(R.id.textView2);
-                        distanceTextView.setText(node.getDistance() + "M");
-                    }
-                });
+//                LocationMarker layoutLocationMarkerL1 = new LocationMarker(
+//                        -122.148871,
+//                        47.585908,
+//                        getExampleView()
+//                );
+//                layoutLocationMarkerL1.setRenderEvent(new LocationNodeRender() {
+//                    @Override
+//                    public void render(LocationNode node) {
+//                        View eView = exampleLayoutRenderable.getView();
+//                        TextView distanceTextView = eView.findViewById(R.id.textView2);
+//                        distanceTextView.setText(node.getDistance() + "M");
+//                    }
+//                });
 
 //
 //                locationScene.mLocationMarkers.add(
@@ -212,78 +283,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    class SingletonRenderer implements LocationNodeRender
-    {
-        private final List<LocationMarker> all;
-        private final LocationMarker parent;
-        private final LocationScene scene;
-        private final String name;
-
-        public SingletonRenderer(
-                LocationScene scene, List<LocationMarker> all, LocationMarker parent, String name) {
-            this.scene = scene;
-            this.all = all;
-            this.parent = parent;
-            this.name = name;
-        }
-
-        @Override
-        public void render(LocationNode locationNode) {
-            boolean isVisible = isVisible(this.parent, arFragment);
-
-            if (shown == null && isVisible) {
-                // hide other
-                shown = this.parent;
-
-                for(LocationMarker lm : this.all) {
-                    if (lm != this.parent) {
-                        hideMarker(lm);
-                    }
-                }
-
-                Log.i("Render", "Appeared: " + this.name);
-            }
-
-            if (shown == this.parent && !isVisible) {
-                shown = null;
-
-                for(LocationMarker lm : this.all) {
-                    lm.setOnlyRenderWhenWithin(Integer.MAX_VALUE);
-                }
-
-                this.scene.refreshAnchors();
-
-                Log.i("Render", "Hidden: " + this.name);
-            }
-
-
-            if (shown == this.parent) {
-                Log.i("Render", "Shown: " + this.name);
-            }
-        }
-    }
-
-    private boolean isVisible(LocationMarker locationMarker, ArFragment arFragment) {
-        Vector3 worldPosition = locationMarker.anchorNode.getWorldPosition();
-        ArSceneView sceneView = arFragment.getArSceneView();
-
-        // looks like there is bug in worldToScreenPoint with horisontal orientation
-        Vector3 screenPoint = sceneView.getScene().getCamera().worldToScreenPoint(worldPosition);
-
-        return (screenPoint.x > 0 &&
-                screenPoint.x < sceneView.getWidth() &&
-                screenPoint.y > 0 &&
-                screenPoint.y < sceneView.getHeight());
-    }
-
-
-    private void hideMarker(LocationMarker locationMarker) {
-        locationMarker.anchorNode.getAnchor().detach();
-        locationMarker.anchorNode.setEnabled(false);
-
-        locationMarker.setOnlyRenderWhenWithin(0);
-    }
-
     /**
      * Make sure we call locationScene.resume();
      */
@@ -314,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             arSceneView.resume();
         } catch (CameraNotAvailableException ex) {
-            Log.d("Camra", "unable to get cam");
+            Log.d("Camera", "unable to get cam");
             finish();
             return;
         }
@@ -390,30 +389,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                             return null;
                         });
-
-        /*
-        Collection<AugmentedImage> augmentedImages = frame.getUpdatedTrackables(AugmentedImage.class);
-        Log.d("size", "size is" + augmentedImages.size());
-
-
-        for (AugmentedImage augmentedImage : augmentedImages){
-            Log.d("Debugging method update frame", "Update frame was called!");
-
-            if (augmentedImage.getTrackingState() == TrackingState.TRACKING){
-                Log.d("trucking state matched picture", "picture was founded!");
-
-                if ((augmentedImage.getName().equals("H_letter")|| augmentedImage.getName().equals("H_letter_1") ||
-                        augmentedImage.getName().equals("Housing"))){
-
-                    Log.d("image name was matched", "model was put on picture!");
-
-                    //start the transperent activity
-                    Intent myIntent = new Intent(MainActivity.this, Initial_Page_Activity.class);
-                    MainActivity.this.startActivity(myIntent);
-                }
-            }
-        }
-        */
     }
     private Node getAndy() {
         Node base = new Node();
@@ -538,9 +513,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
-
-
-
-
-
 }
