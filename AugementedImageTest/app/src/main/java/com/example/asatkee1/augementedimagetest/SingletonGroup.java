@@ -15,6 +15,7 @@ class SingletonGroup {
     private LocationScene scene;
     private ArFragment arFragment;
     private String groupName;
+    private int maximumRenderDistance;
 
     public LocationMarker getCurrentlyShownMarker() {
         return this.currentlyVisibleMarker;
@@ -32,15 +33,17 @@ class SingletonGroup {
         }
     }
 
-    public SingletonGroup(LocationScene scene, ArFragment arFragment, List<LocationMarker> markers, String groupName) {
+    public SingletonGroup(LocationScene scene, ArFragment arFragment, List<LocationMarker> markers, String groupName, int maximumRenderDistance) {
         this.scene = scene;
         this.markers = markers;
         this.arFragment = arFragment;
+        this.maximumRenderDistance = maximumRenderDistance;
 
         Integer i = 0;
         for(LocationMarker marker : markers) {
             marker.setRenderEvent(
                 new SingletonRenderer(this, marker, groupName + "_" + i.toString()));
+            marker.setOnlyRenderWhenWithin(this.maximumRenderDistance);
             i++;
         }
     }
@@ -73,7 +76,7 @@ class SingletonGroup {
 
     public void showAll() {
         for (LocationMarker lm : this.markers) {
-            lm.setOnlyRenderWhenWithin(Integer.MAX_VALUE);
+            lm.setOnlyRenderWhenWithin(this.maximumRenderDistance);
         }
 
         this.scene.refreshAnchors();
