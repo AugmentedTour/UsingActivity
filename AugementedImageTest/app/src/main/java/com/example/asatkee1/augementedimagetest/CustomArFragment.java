@@ -1,6 +1,5 @@
 package com.example.asatkee1.augementedimagetest;
 
-import android.util.Log;
 import com.google.ar.core.Config;
 import com.google.ar.core.Session;
 import com.google.ar.sceneform.ux.ArFragment;

@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //keep it in portrait mode if user wants to turn phone
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         arFragment = (ArFragment)getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
         arSceneView = arFragment.getArSceneView();
@@ -108,11 +110,11 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                     Frame frame = arFragment.getArSceneView().getArFrame();
-            if (locationScene == null) {
-                locationScene = new LocationScene(this, this, arFragment.getArSceneView());
-                locationScene.setAnchorRefreshInterval(500);
+                    if (locationScene == null) {
+                        locationScene = new LocationScene(this, this, arFragment.getArSceneView());
+                        locationScene.setAnchorRefreshInterval(500);
 
-                //////////////
+                        //////////////
 //                LocationMarker locationMarkerL1 =
 //                        new LocationMarker(
 //                                -122.148925,
@@ -143,75 +145,75 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                double startLLat = 47.586036;
-                double lastLLat = 47.585510;
-                List<LocationMarker> markersL =
-                        new ArrayList<>(4);
+                        double startLLat = 47.586036;
+                        double lastLLat = 47.585510;
+                        List<LocationMarker> markersL =
+                                new ArrayList<>(4);
 
-                for(double i = 47.586036; i > 47.585510; i -= 0.00001){
-                    LocationMarker locationMarkerL =
-                            new LocationMarker(
+                        for(double i = 47.586036; i > 47.585510; i -= 0.00001){
+                            LocationMarker locationMarkerL =
+                                    new LocationMarker(
 
-                                    -122.148925,
-                                    i,
-                                    getAndy());
-                    markersL.add(locationMarkerL);
-                }
+                                            -122.148925,
+                                            i,
+                                            getAndy());
+                            markersL.add(locationMarkerL);
+                        }
 
-                //corner's markers
-                LocationMarker locationMarkerL1 =
-                        new LocationMarker(
-                                -122.148587,
-                                47.586003,
-                                getAndy());
+                        //corner's markers
+                        LocationMarker locationMarkerL1 =
+                                new LocationMarker(
+                                        -122.148587,
+                                        47.586003,
+                                        getAndy());
 
-                LocationMarker locationMarkerL2 =
-                        new LocationMarker(
-                                -122.149065,
-                                47.586041,
-                                getAndy());
+                        LocationMarker locationMarkerL2 =
+                                new LocationMarker(
+                                        -122.149065,
+                                        47.586041,
+                                        getAndy());
 
-                LocationMarker locationMarkerL3 =
-                        new LocationMarker(
-                                -122.148592,
-                                47.585557,
-                                getAndy());
+                        LocationMarker locationMarkerL3 =
+                                new LocationMarker(
+                                        -122.148592,
+                                        47.585557,
+                                        getAndy());
 
-                LocationMarker locationMarkerL4 =
-                        new LocationMarker(
-                                -122.149066,
-                                47.585518,
-                                getAndy());
+                        LocationMarker locationMarkerL4 =
+                                new LocationMarker(
+                                        -122.149066,
+                                        47.585518,
+                                        getAndy());
 
-                markersL.add(locationMarkerL1);
-                markersL.add(locationMarkerL2);
-                markersL.add(locationMarkerL3);
-                markersL.add(locationMarkerL4);
+                        markersL.add(locationMarkerL1);
+                        markersL.add(locationMarkerL2);
+                        markersL.add(locationMarkerL3);
+                        markersL.add(locationMarkerL4);
 
-                new SingletonGroup(locationScene, arFragment, markersL, "Group1");
+                        new SingletonGroup(locationScene, arFragment, markersL, "Group1");
 
-                locationScene.mLocationMarkers.addAll(markersL);
+                        locationScene.mLocationMarkers.addAll(markersL);
 
-                //////////////
-                LocationMarker locationMarkerR1 =
-                        new LocationMarker(
-                                -122.14933,
-                                47.586128,
-                                getExampleView());
-                LocationMarker locationMarkerR2 =
-                        new LocationMarker(
-                                -122.14937,
-                                47.586128,
-                                getExampleView());
-                LocationMarker locationMarkerR3 =
-                        new LocationMarker(
-                                -122.1494,
-                                47.586128,
-                                getExampleView());
-                //////////////
+                        //////////////
+                        LocationMarker locationMarkerR1 =
+                                new LocationMarker(
+                                        -122.14933,
+                                        47.586128,
+                                        getExampleView());
+                        LocationMarker locationMarkerR2 =
+                                new LocationMarker(
+                                        -122.14937,
+                                        47.586128,
+                                        getExampleView());
+                        LocationMarker locationMarkerR3 =
+                                new LocationMarker(
+                                        -122.1494,
+                                        47.586128,
+                                        getExampleView());
+                        //////////////
 
-                List<LocationMarker> markersR =
-                        new ArrayList<>(2);
+                        List<LocationMarker> markersR =
+                                new ArrayList<>(2);
 //
 //                double startRLong = -122.14933;
 //                double lastRLong = -122.15007;
@@ -224,13 +226,13 @@ public class MainActivity extends AppCompatActivity {
 //                    markersR.add(locationMarkerR);
 //                }
 
-                markersR.add(locationMarkerR1);
-                markersR.add(locationMarkerR2);
-                markersR.add(locationMarkerR3);
+                        markersR.add(locationMarkerR1);
+                        markersR.add(locationMarkerR2);
+                        markersR.add(locationMarkerR3);
 
-                new SingletonGroup(locationScene, arFragment, markersR, "Group2");
+                        new SingletonGroup(locationScene, arFragment, markersR, "Group2");
 
-                locationScene.mLocationMarkers.addAll(markersR);
+                        locationScene.mLocationMarkers.addAll(markersR);
 
 //                LocationMarker layoutLocationMarkerL1 = new LocationMarker(
 //                        -122.148871,
@@ -270,18 +272,18 @@ public class MainActivity extends AppCompatActivity {
 //                                -122.148936,
 //                                47.585708,
 //                                getAndy()));
-                //locationScene.mLocationMarkers.add(layoutLocationMarkerL1);
+                        //locationScene.mLocationMarkers.add(layoutLocationMarkerL1);
 
-            }
+                    }
 
 
 
-            if (locationScene != null) {
-                locationScene.processFrame(frame);
+                    if (locationScene != null) {
+                        locationScene.processFrame(frame);
 
-            }
+                    }
 
-        });
+                });
         ARLocationPermissionHelper.requestPermission(this);
 
     }
@@ -485,7 +487,7 @@ public class MainActivity extends AppCompatActivity {
         augmentedImageDatabase = new AugmentedImageDatabase(session);
         augmentedImageDatabase.addImage("H_letter", bitmap.get(0));
         augmentedImageDatabase.addImage("H_letter_1", bitmap.get(1));
-       // augmentedImageDatabase.addImage("Housing", bitmap.get(2));
+        // augmentedImageDatabase.addImage("Housing", bitmap.get(2));
         config.setAugmentedImageDatabase(augmentedImageDatabase);
         return true;
     }
