@@ -2,6 +2,7 @@ package com.example.asatkee1.augementedimagetest;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Frame frame = arFragment.getArSceneView().getArFrame();
                     if (locationScene == null) {
-                        locationScene = new LocationScene(this, this, arFragment.getArSceneView());
+                        locationScene = new LocationScene(this, arFragment.getArSceneView());
                         locationScene.setAnchorRefreshInterval(500);
 
                         //////////////
