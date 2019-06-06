@@ -304,6 +304,7 @@ public class LocationScene {
 
                 float y = frame.getCamera().getDisplayOrientedPose().ty() + (float) heightAdjustment;
 
+
                 if (marker.anchorNode != null && marker.anchorNode.getAnchor() != null) {
                     marker.anchorNode.getAnchor().detach();
                     marker.anchorNode.setAnchor(null);
@@ -340,6 +341,8 @@ public class LocationScene {
 
                 if (minimalRefreshing)
                     marker.anchorNode.scaleAndRotate();
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -383,6 +386,7 @@ public class LocationScene {
         deviceOrientation.pause();
         deviceLocation.pause();
     }
+
 
     void startCalculationTask() {
         anchorRefreshTask.run();

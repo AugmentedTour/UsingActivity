@@ -14,4 +14,7 @@
      />/   android:name="com.example.asatkee1.augementedimagetest.CustomArFragment"
         />
 
+
+
+
 </android.support.constraint.ConstraintLayout>

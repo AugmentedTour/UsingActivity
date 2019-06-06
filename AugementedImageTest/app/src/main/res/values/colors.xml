@@ -6,4 +6,5 @@
     <color name="background">#162F57</color>
     <color name="silver">#A7A9AC</color>
     <color name="blue">#003D79</color>
+    <color name="darkBlue">#162F57</color>
 </resources>
