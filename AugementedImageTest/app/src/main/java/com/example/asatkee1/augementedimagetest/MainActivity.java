@@ -2,6 +2,7 @@ package com.example.asatkee1.augementedimagetest;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -69,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //keep it in portrait mode if user wants to turn phone
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        //Check permissions before launching into AR
+        PermissionHandler handler = new PermissionHandler();
+        if(!handler.checkPermissions(this)) {
+            //if no permissions, return to start page. Start page will ask again.
+            Toast.makeText(this, "Needed permissions not granted.", Toast.LENGTH_LONG);
+            Intent startLaunch = new Intent(this, LaunchPage.class);
+            startActivity(startLaunch);
+        }
 
         arFragment = (ArFragment)getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
         arSceneView = arFragment.getArSceneView();
