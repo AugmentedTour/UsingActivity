@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/departments_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical"
+    tools:context=".LScienceDivisionActivity">
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/departments_list"-->
+    <!--android:layout_width="368dp"-->
+    <!--android:layout_height="145dp"-->
+    <!--android:orientation="vertical"-->
+    <!--tools:layout_editor_absoluteX="8dp"-->
+    <!--tools:layout_editor_absoluteY="54dp">-->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/sami"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="siteSaMI"
+            android:text="Science and Math Institute"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/science_advising"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="scienceAdvising"
+            android:text="Science Advising"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/department_list"
+        android:layout_width="match_parent"
+        android:layout_height="395dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="16dp"
+        android:layout_weight="100"
+        android:text="Departments of the Science Division:"
+        android:textColor="#0b0c0c"
+        android:textSize="23sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--</LinearLayout>-->
+
+
+</LinearLayout>

@@ -16,6 +16,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asatkee1.augementedimagetest.BuildingPages.LBuilding.LBuilding;
+import com.example.asatkee1.augementedimagetest.BuildingPages.RBuilding.RBuilding;
+import com.example.asatkee1.augementedimagetest.BuildingPages.SBuilding.SBuilding;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.ArCoreApk;
 import com.google.ar.core.AugmentedImageDatabase;
@@ -32,10 +35,13 @@ import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.math.Quaternion;
+import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.ar.sceneform.ux.ScaleController;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.io.IOException;
@@ -58,6 +64,15 @@ public class MainActivity extends AppCompatActivity {
     private LocationScene locationScene;
     private Renderable andyRenderable;
     private ViewRenderable exampleLayoutRenderable;
+
+    private ViewRenderable aBuildingRenderable;
+    private ViewRenderable bBuildingRenderable;
+    private ViewRenderable dBuildingRenderable;
+    private ViewRenderable lBuildingRenderable;
+    private ViewRenderable nBuildingRenderable;
+    private ViewRenderable rBuildingRenderable;
+    private ViewRenderable sBuildingRenderable;
+
     private ArSceneView arSceneView;
     private boolean installRequested;
     private boolean hasFinishedLoading = false;
@@ -94,6 +109,44 @@ public class MainActivity extends AppCompatActivity {
                         .setView(this, R.layout.example_layout)
                         .build();
 
+
+        //Building Objects
+
+        CompletableFuture<ViewRenderable> aBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.a_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> bBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.b_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> dBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.d_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> lBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.l_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> nBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.n_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> rBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.r_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> sBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.s_building_object)
+                        .build();
+
         CompletableFuture.allOf(andy, exampleLayout )
                 .handle(
                         (notUsed, throwable) ->
@@ -103,9 +156,19 @@ public class MainActivity extends AppCompatActivity {
                             }
                             try {
                                 andyRenderable = andy.get();
-                                Toast.makeText(this, "I see the marker", Toast.LENGTH_SHORT).show();
+
+                                //build buildings
+                                aBuildingRenderable = aBuilding.get();
+                                bBuildingRenderable = bBuilding.get();
+                                dBuildingRenderable = dBuilding.get();
+                                lBuildingRenderable = lBuilding.get();
+                                nBuildingRenderable = nBuilding.get();
+                                rBuildingRenderable = rBuilding.get();
+                                sBuildingRenderable = sBuilding.get();
+
+                                //Toast.makeText(this, "I see the marker", Toast.LENGTH_SHORT).show();
                                 exampleLayoutRenderable = exampleLayout.get();
-                                Toast.makeText(this, "I see layout marker", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(this, "I see layout marker", Toast.LENGTH_SHORT).show();
                                 hasFinishedLoading = true;
 
                             } catch (InterruptedException | ExecutionException ex) {
@@ -137,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     -122.148925,
                                     i,
-                                    getAndy());
+                                    getBuildingXML(lBuildingRenderable, LBuilding.class));
                     markersL.add(locationMarkerL);
                 }
 
@@ -146,25 +209,25 @@ public class MainActivity extends AppCompatActivity {
                         new LocationMarker(
                                 -122.148587,
                                 47.586003,
-                                getAndy());
+                                getBuildingXML(lBuildingRenderable, LBuilding.class));
 
                 LocationMarker locationMarkerL2 =
                         new LocationMarker(
                                 -122.149065,
                                 47.586041,
-                                getAndy());
+                                getBuildingXML(lBuildingRenderable, LBuilding.class));
 
                 LocationMarker locationMarkerL3 =
                         new LocationMarker(
                                 -122.148592,
                                 47.585557,
-                                getAndy());
+                                getBuildingXML(lBuildingRenderable, LBuilding.class));
 
                 LocationMarker locationMarkerL4 =
                         new LocationMarker(
                                 -122.149066,
                                 47.585518,
-                                getAndy());
+                                getBuildingXML(lBuildingRenderable, LBuilding.class));
 
                 markersL.add(locationMarkerL1);
                 markersL.add(locationMarkerL2);
@@ -187,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                         new LocationMarker(
                                 j,
                                 47.586128,
-                                getExampleView());
+                                getBuildingXML(rBuildingRenderable, RBuilding.class));
                     markersR.add(locationMarkerR);
                 }
 
@@ -199,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     -122.149989,
                                     j,
-                                    getExampleView());
+                                    getBuildingXML(rBuildingRenderable, RBuilding.class));
                     markersR.add(locationMarkerR);
                 }
 
@@ -209,27 +272,27 @@ public class MainActivity extends AppCompatActivity {
                         new LocationMarker(
                                 -122.149373,
                                 47.586235,
-                                getExampleView());
+                                getBuildingXML(rBuildingRenderable, RBuilding.class));
                 LocationMarker locationMarkerR2 =
                         new LocationMarker(
                                 -122.149331,
                                 47.586042,
-                                getExampleView());
+                                getBuildingXML(rBuildingRenderable, RBuilding.class));
                 LocationMarker locationMarkerR3 =
                         new LocationMarker(
                                 -122.150068,
                                 47.586255,
-                                getExampleView());
+                                getBuildingXML(rBuildingRenderable, RBuilding.class));
                 LocationMarker locationMarkerR4 =
                         new LocationMarker(
                                 -122.150101,
                                 47.585554,
-                                getExampleView());
+                                getBuildingXML(rBuildingRenderable, RBuilding.class));
                 LocationMarker locationMarkerR5 =
                         new LocationMarker(
                                 -122.149890,
                                 47.585549,
-                                getExampleView());
+                                getBuildingXML(rBuildingRenderable, RBuilding.class));
 
 
                 markersR.add(locationMarkerR1);
@@ -254,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     j,
                                     47.58493,
-                                    getExampleView());
+                                    getExampleView(bBuildingRenderable));
                     markersB.add(locationMarkerB);
                 }
 
@@ -265,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     -122.14878,
                                     j,
-                                    getExampleView());
+                                    getExampleView(bBuildingRenderable));
                     markersB.add(locationMarkerB);
                 }
 
@@ -275,32 +338,32 @@ public class MainActivity extends AppCompatActivity {
                         new LocationMarker(
                                 -122.149036,
                                 47.585419,
-                                getExampleView());
+                                getExampleView(bBuildingRenderable));
                 LocationMarker locationMarkerB2 =
                         new LocationMarker(
                                 -122.148518,
                                 47.585419,
-                                getExampleView());
+                                getExampleView(bBuildingRenderable));
                 LocationMarker locationMarkerB3 =
                         new LocationMarker(
                                 -122.147756,
                                 47.585060,
-                                getExampleView());
+                                getExampleView(bBuildingRenderable));
                 LocationMarker locationMarkerB4 =
                         new LocationMarker(
                                 -122.147761,
                                 47.584800,
-                                getExampleView());
+                                getExampleView(bBuildingRenderable));
                 LocationMarker locationMarkerB5 =
                         new LocationMarker(
                                 -122.148851,
                                 47.584482,
-                                getExampleView());
+                                getExampleView(bBuildingRenderable));
                 LocationMarker locationMarkerB6 =
                         new LocationMarker(
                                 -122.149205,
                                 47.584488,
-                                getExampleView());
+                                getExampleView(bBuildingRenderable));
 
                 markersB.add(locationMarkerB1);
                 markersB.add(locationMarkerB2);
@@ -309,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
                 markersB.add(locationMarkerB5);
                 markersB.add(locationMarkerB6);
 
+                //TODO no B Building
                 new SingletonGroup(locationScene, arFragment, markersB, "Group3", 70);
 
                 locationScene.mLocationMarkers.addAll(markersB);
@@ -326,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
                                 new LocationMarker(
                                         -122.14726,
                                         j,
-                                        getAndy());
+                                        getBuildingXML(sBuildingRenderable, SBuilding.class));
                         markersS.add(locationMarkerS);
                     }
 
@@ -335,27 +399,27 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     -122.147436,
                                     47.585085,
-                                    getAndy());
+                                    getBuildingXML(sBuildingRenderable, SBuilding.class));
                     LocationMarker locationMarkerS2 =
                             new LocationMarker(
                                     -122.147451,
                                     47.584832,
-                                    getAndy());
+                                    getBuildingXML(sBuildingRenderable, SBuilding.class));
                     LocationMarker locationMarkerS3 =
                             new LocationMarker(
                                     -122.147281,
                                     47.584746,
-                                    getAndy());
+                                    getBuildingXML(sBuildingRenderable, SBuilding.class));
                     LocationMarker locationMarkerS4 =
                             new LocationMarker(
                                     -122.147081,
                                     47.584739,
-                                    getAndy());
+                                    getBuildingXML(sBuildingRenderable, SBuilding.class));
                     LocationMarker locationMarkerS5 =
                             new LocationMarker(
                                     -122.147166,
                                     47.585060,
-                                    getAndy());
+                                    getBuildingXML(sBuildingRenderable, SBuilding.class));
 
                     markersS.add(locationMarkerS1);
                     markersS.add(locationMarkerS2);
@@ -378,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     -122.14882,
                                     j,
-                                    getAndy());
+                                    getExampleView(aBuildingRenderable));
                     markersA.add(locationMarkerA);
                 }
 
@@ -389,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     -122.1484,
                                     j,
-                                    getAndy());
+                                    getExampleView(aBuildingRenderable));
                     markersA.add(locationMarkerA);
                 }
 
@@ -400,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     j,
                                     47.586128,
-                                    getAndy());
+                                    getExampleView(aBuildingRenderable));
                     markersA.add(locationMarkerA);
                 }
 
@@ -409,47 +473,47 @@ public class MainActivity extends AppCompatActivity {
                         new LocationMarker(
                                 -122.149190,
                                 47.584308,
-                                getAndy());
+                                getExampleView(aBuildingRenderable));
                 LocationMarker locationMarkerA2 =
                         new LocationMarker(
                                 -122.148858,
                                 47.584308,
-                                getAndy());
+                                getExampleView(aBuildingRenderable));
                 LocationMarker locationMarkerA3 =
                         new LocationMarker(
                                 -122.148616,
                                 47.584060,
-                                getAndy());
+                                getExampleView(aBuildingRenderable));
                 LocationMarker locationMarkerA4 =
                         new LocationMarker(
                                 -122.148398,
                                 47.583851,
-                                getAndy());
+                                getExampleView(aBuildingRenderable));
                 LocationMarker locationMarkerA5 =
                         new LocationMarker(
                                 -122.148303,
                                 47.583234,
-                                getAndy());
+                                getExampleView(aBuildingRenderable));
                 LocationMarker locationMarkerA6 =
                         new LocationMarker(
                                 -122.148463,
                                 47.583121,
-                                getAndy());
+                                getExampleView(aBuildingRenderable));
                 LocationMarker locationMarkerA7 =
                         new LocationMarker(
                                 -122.148631,
                                 47.583121,
-                                getAndy());
+                                getExampleView(aBuildingRenderable));
                 LocationMarker locationMarkerA8 =
                         new LocationMarker(
                                 -122.148853,
                                 47.583238,
-                                getAndy());
+                                getExampleView(aBuildingRenderable));
                 LocationMarker locationMarkerA9 =
                         new LocationMarker(
                                 -122.149150,
                                 47.583957,
-                                getAndy());
+                                getExampleView(aBuildingRenderable));
 
                 markersA.add(locationMarkerA1);
                 markersA.add(locationMarkerA2);
@@ -461,6 +525,7 @@ public class MainActivity extends AppCompatActivity {
                 markersA.add(locationMarkerA8);
                 markersA.add(locationMarkerA9);
 
+                //TODO no A Building
                 new SingletonGroup(locationScene, arFragment, markersA, "Group5", 70);
                 locationScene.mLocationMarkers.addAll(markersA);
 
@@ -477,7 +542,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     j,
                                     47.58422,
-                                    getExampleView());
+                                    getExampleView(dBuildingRenderable));
                     markersD.add(locationMarkerD);
                 }
 
@@ -488,7 +553,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     -122.15002,
                                     j,
-                                    getExampleView());
+                                    getExampleView(dBuildingRenderable));
                     markersD.add(locationMarkerD);
                 }
 
@@ -498,47 +563,47 @@ public class MainActivity extends AppCompatActivity {
                         new LocationMarker(
                                 -122.150480,
                                 47.584332,
-                                getExampleView());
+                                getExampleView(dBuildingRenderable));
                 LocationMarker locationMarkerD2 =
                         new LocationMarker(
                                 -122.149663,
                                 47.584323,
-                                getExampleView());
+                                getExampleView(dBuildingRenderable));
                 LocationMarker locationMarkerD3 =
                         new LocationMarker(
                                 -122.149663,
                                 47.584240,
-                                getExampleView());
+                                getExampleView(dBuildingRenderable));
                 LocationMarker locationMarkerD4 =
                         new LocationMarker(
                                 -122.149743,
                                 47.584121,
-                                getExampleView());
+                                getExampleView(dBuildingRenderable));
                 LocationMarker locationMarkerD5 =
                         new LocationMarker(
                                 -122.149838,
                                 47.583160,
-                                getExampleView());
+                                getExampleView(dBuildingRenderable));
                 LocationMarker locationMarkerD6 =
                         new LocationMarker(
                                 -122.150160,
                                 47.583158,
-                                getExampleView());
+                                getExampleView(dBuildingRenderable));
                 LocationMarker locationMarkerD7 =
                         new LocationMarker(
                                 -122.150357,
                                 47.583492,
-                                getExampleView());
+                                getExampleView(dBuildingRenderable));
                 LocationMarker locationMarkerD8 =
                         new LocationMarker(
                                 -122.150352,
                                 47.583728,
-                                getExampleView());
+                                getExampleView(dBuildingRenderable));
                 LocationMarker locationMarkerD9 =
                         new LocationMarker(
                                 -122.150482,
                                 47.584099,
-                                getExampleView());
+                                getExampleView(dBuildingRenderable));
 
                 markersD.add(locationMarkerD1);
                 markersD.add(locationMarkerD2);
@@ -550,6 +615,7 @@ public class MainActivity extends AppCompatActivity {
                 markersD.add(locationMarkerD8);
                 markersD.add(locationMarkerD9);
 
+                //TODO No D Building
                 new SingletonGroup(locationScene, arFragment, markersD, "Group6", 70);
                 locationScene.mLocationMarkers.addAll(markersD);
 
@@ -565,7 +631,7 @@ public class MainActivity extends AppCompatActivity {
                             new LocationMarker(
                                     j,
                                     47.58205,
-                                    getExampleView());
+                                    getExampleView(nBuildingRenderable));
                     markersN.add(locationMarkerN);
                 }
 
@@ -574,37 +640,37 @@ public class MainActivity extends AppCompatActivity {
                         new LocationMarker(
                                 -122.150435,
                                 47.582186,
-                                getExampleView());
+                                getExampleView(nBuildingRenderable));
                 LocationMarker locationMarkerN2 =
                         new LocationMarker(
                                 -122.150173,
                                 47.582235,
-                                getExampleView());
+                                getExampleView(nBuildingRenderable));
                 LocationMarker locationMarkerN3 =
                         new LocationMarker(
                                 -122.149873,
                                 47.582299,
-                                getExampleView());
+                                getExampleView(nBuildingRenderable));
                 LocationMarker locationMarkerN4 =
                         new LocationMarker(
                                 -122.149595,
                                 47.582187,
-                                getExampleView());
+                                getExampleView(nBuildingRenderable));
                 LocationMarker locationMarkerN5 =
                         new LocationMarker(
                                 -122.149185,
                                 47.582191,
-                                getExampleView());
+                                getExampleView(nBuildingRenderable));
                 LocationMarker locationMarkerN6 =
                         new LocationMarker(
                                 -122.149210,
                                 47.581904,
-                                getExampleView());
+                                getExampleView(nBuildingRenderable));
                 LocationMarker locationMarkerN7 =
                         new LocationMarker(
                                 -122.150440,
                                 47.581941,
-                                getExampleView());
+                                getExampleView(nBuildingRenderable));
 
                 markersD.add(locationMarkerN1);
                 markersD.add(locationMarkerN2);
@@ -614,6 +680,7 @@ public class MainActivity extends AppCompatActivity {
                 markersD.add(locationMarkerN6);
                 markersD.add(locationMarkerN7);
 
+                //TODO no N Building
                 new SingletonGroup(locationScene, arFragment, markersN, "Group7", 70);
                 locationScene.mLocationMarkers.addAll(markersN);
 
@@ -728,7 +795,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             try {
                                 andyRenderable = andy.get();
-                                Toast.makeText(this, "I see the marker", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(this, "I see the marker", Toast.LENGTH_SHORT).show();
 
                             } catch (InterruptedException | ExecutionException ex) {
 
@@ -740,11 +807,28 @@ public class MainActivity extends AppCompatActivity {
         Node base = new Node();
         base.setRenderable(andyRenderable);
         Context c = this;
-        Toast.makeText(c, "In get Andy method", Toast.LENGTH_LONG).show();
+        //Toast.makeText(c, "In get Andy method", Toast.LENGTH_LONG).show();
         base.setOnTapListener((v, event) -> {
             Toast.makeText(
                     c, "Location marker is touched.", Toast.LENGTH_LONG)
                     .show();
+            //Intent myIntent = new Intent(MainActivity.this, LaunchPage.class);
+            //MainActivity.this.startActivity(myIntent);
+        });
+        return base;
+    }
+
+    //A generic class that will build a node based on a renderable that when tapped will open the sent activity.
+    private Node getBuildingXML(Renderable renderable, Class goTo) {
+        Node base = new Node();
+        base.setRenderable(renderable);
+        Context c = this;
+        base.setOnTapListener((v, event) -> {
+            //Toast.makeText(
+             //       c, "Location marker is touched.", Toast.LENGTH_LONG)
+             //       .show();
+            Intent myIntent = new Intent(MainActivity.this, goTo);
+            MainActivity.this.startActivity(myIntent);
         });
         return base;
     }
@@ -765,21 +849,51 @@ public class MainActivity extends AppCompatActivity {
         return base;
     }
 
-    private void placeObject(ArFragment fragment, Anchor anchor, Uri model){
-        ModelRenderable.builder()
-                .setSource(fragment.getContext(), model)
-                .build()
-                .thenAccept(renderable -> addNodeToScene(fragment, anchor, renderable))
-                .exceptionally((throwable -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage(throwable.getMessage())
-                            .setTitle("Error!");
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                    return null;
-                }));
+    private Node getExampleView(Renderable renderable) {
+        Node base = new Node();
+        base.setRenderable(renderable);
+
+        return base;
     }
 
+//    private void placeObject(ArFragment fragment, Anchor anchor, Uri model){
+//        ModelRenderable.builder()
+//                .setSource(fragment.getContext(), model)
+//                .build()
+//                .thenAccept(renderable -> addNodeToScene(fragment, anchor, renderable))
+//                .exceptionally((throwable -> {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                    builder.setMessage(throwable.getMessage())
+//                            .setTitle("Error!");
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                    return null;
+//                }));
+//    }
+//
+//
+//    private void addNodeToScene(ArFragment arFragment, Anchor anchor, Renderable renderable) {
+//        AnchorNode anchorNode = new AnchorNode(anchor);
+//        TransformableNode node = new TransformableNode(arFragment.getTransformationSystem());
+//
+//        //rotate node
+//        node.setLocalRotation(Quaternion.axisAngle(new Vector3(1f, 0, 0), 270f));
+//        //node.setLocalRotation(Quaternion.axisAngle(new Vector3(0, 1f, 0), 90f));
+//
+//        //set scale
+//        ScaleController scaler = node.getScaleController();
+//        scaler.setMinScale(0.2f);
+//        scaler.setMaxScale(0.3f);
+//
+//
+//        node.setLocalPosition(new Vector3(-.2f, 0, .2f));
+//
+//        node.setRenderable(renderable);
+//        node.setParent(anchorNode);
+//        arFragment.getArSceneView().getScene().addChild(anchorNode);
+//        node.select();
+//
+//    }
 
     @Override
     public void onRequestPermissionsResult(
@@ -797,19 +911,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-    private void addNodeToScene(ArFragment arFragment, Anchor anchor, Renderable renderable) {
-        AnchorNode anchorNode = new AnchorNode(anchor);
-        TransformableNode node = new TransformableNode(arFragment.getTransformationSystem());
-
-
-
-        node.setRenderable(renderable);
-        node.setParent(anchorNode);
-        arFragment.getArSceneView().getScene().addChild(anchorNode);
-        node.select();
-    }
 
 
     public boolean setupAugmentedImageDb(Config config, Session session){

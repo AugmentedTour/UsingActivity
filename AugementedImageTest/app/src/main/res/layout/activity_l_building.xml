@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/l_building"
+    tools:context=".LBuilding">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <TextView
+        android:id="@+id/address_of_the_building"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginBottom="43dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:inputType="text|textPersonName"
+        android:text="L Building, Bellevue College"
+        android:textColor="#0b0c0c"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/SD_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+
+    <Button
+        android:id="@+id/science_division"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="221dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="100dp"
+        android:gravity="left"
+        android:text="Science Devision"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/SD_address"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:inputType="text|textPersonName"
+        android:singleLine="false"
+        android:text="L200, 3000 Landerholm Circle SE"
+        android:textColor="#0b0c0c"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/SD_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/science_division"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/SD_phone"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="164dp"
+        android:layout_height="0dp"
+        android:gravity="left"
+        android:text="425-564-2321"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/interior_design"
+        app:layout_constraintStart_toStartOf="@+id/science_division"
+        app:layout_constraintTop_toBottomOf="@+id/SD_address"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/interior_design"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="361dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="80dp"
+        android:gravity="left"
+        android:text="Department of Interior Design"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/SD_phone"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/ID_address"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginRight="23dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:inputType="text|textPersonName"
+        android:text="Office  L115C 3000 Landerholm Circle SE"
+        android:textColor="#0b0c0c"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/ID_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/interior_design"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/ID_phone"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="164dp"
+        android:layout_height="0dp"
+        android:gravity="left"
+        android:text="425-564-2624"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/events_on_the_lobby"
+        app:layout_constraintStart_toStartOf="@+id/interior_design"
+        app:layout_constraintTop_toBottomOf="@+id/ID_address"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/events_on_the_lobby"
+        android:layout_width="237dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="154dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:inputType="text|textPersonName"
+        android:text="Events in the lobby:"
+        android:textAllCaps="false"
+        android:textColor="#0b0c0c"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+</android.support.constraint.ConstraintLayout>
