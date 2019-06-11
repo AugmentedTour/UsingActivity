@@ -34,6 +34,79 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="BuildingPages.HelpActivity" />
+
+        <!-- A building -->
+        <activity android:name=".BuildingPages.ABuilding.ABuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.ABuilding.ABCFoundation"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.ABuilding.ACurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.ABuilding.AIBIT"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <!-- B building -->
+        <activity android:name=".BuildingPages.BBuilding.BBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.BBuilding.BCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <!-- D building -->
+        <activity android:name=".BuildingPages.DBuilding.DBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.DBuilding.DASC"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.DBuilding.DCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.DBuilding.DLMC"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.DBuilding.DSafety"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <!-- L building -->
+        <activity android:name=".BuildingPages.LBuilding.LBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.LBuilding.LScienceDivisionActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.LBuilding.LInteriorDesignActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.LBuilding.LCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
+        <!-- N building -->
+        <activity android:name=".BuildingPages.NBuilding.NBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.NBuilding.NCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
+        <!-- R building -->
+        <activity android:name=".BuildingPages.RBuilding.RBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.RBuilding.RArtsAndHumanitiesMain"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.RBuilding.RArtsAndHumanitiesDepartments"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.RBuilding.RDanceMain"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.RBuilding.RELIMain"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.RBuilding.RELIPrograms"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.RBuilding.RABEMain"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.RBuilding.RCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
+        <!-- S building -->
+        <activity android:name=".BuildingPages.SBuilding.SBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.SBuilding.SScienceDepartments"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.SBuilding.SScienceAdvising"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.SBuilding.SScienceStudyCenter"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.SBuilding.SCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
     </application>
 
 </manifest>

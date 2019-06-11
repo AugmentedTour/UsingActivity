@@ -1,4 +1,4 @@
-package com.example.asatkee1.augementedimagetest.BuildingPages.SBuilding;
+package com.example.asatkee1.augementedimagetest.BuildingPages.ABuilding;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,7 +8,7 @@ import com.example.asatkee1.augementedimagetest.BuildingPages.AppActivityBuilder
 import com.example.asatkee1.augementedimagetest.R;
 
 
-public class SScienceAdvising extends AppActivityBuilderMethods {
+public class AIBIT extends AppActivityBuilderMethods {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class SScienceAdvising extends AppActivityBuilderMethods {
 
         // --- Toolbar stuff, don't forget to set the name ---
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Science Advising");
+        toolbar.setTitle("IBIT");
         setSupportActionBar(toolbar);
 
         // --- Gotta put these in the onCreate method ---
@@ -28,20 +28,17 @@ public class SScienceAdvising extends AppActivityBuilderMethods {
 
 
         // --- topLayout ---
-        subTitleBuilder("Science Advising", topLayout);
+        subTitleBuilder("IBIT", topLayout);
 
-        phoneBuilder(" science advising ", "(425)564-2321", bodyLayout);
-
-        String info = "Call to schedule a one on one advising session.\n\n" +
-                "Same day appointments are available most Tuesdays and Wednesdays. Sign ups for " +
-                "same day appointments start in the morning. Come to L200 to sign up for a time. \n\n" +
-                "Group advising sessions are available for certain science majors. Information and sign ups are " +
-                "available on the Science Advising website. \n";
+        String info = "The Institute for Business & Information Technology is located in A254. \n\n" +
+                "Our goal is to provide students with meaningful preparation to meet the challenges of " +
+                "a global environment in the areas of business, information technology, and digital media.  ";
 
         // --- bodyLayout ---
         textViewBuilder(info, bodyLayout);
-        linkButtonBuilder("Website", "https://www.bellevuecollege.edu/science/advising/", true, bodyLayout);
-
+        phoneBuilder(" IBIT Office ", "(425) 564-2311", bodyLayout);
+        linkButtonBuilder("IBIT Website", "https://www.bellevuecollege.edu/ibit/", true, bodyLayout);
 
     }
+
 }

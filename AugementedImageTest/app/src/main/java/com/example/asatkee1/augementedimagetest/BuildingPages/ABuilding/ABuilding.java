@@ -1,4 +1,4 @@
-package com.example.asatkee1.augementedimagetest.BuildingPages.SBuilding;
+package com.example.asatkee1.augementedimagetest.BuildingPages.ABuilding;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import com.example.asatkee1.augementedimagetest.BuildingPages.AppActivityBuilderMethods;
 import com.example.asatkee1.augementedimagetest.R;
 
-public class SBuilding extends AppActivityBuilderMethods {
+public class ABuilding extends AppActivityBuilderMethods {
     // Put in the URL this activity will be parsing from.
     private final String THIS_ONES_URL = "";
 
@@ -22,7 +22,7 @@ public class SBuilding extends AppActivityBuilderMethods {
 
         // --- Toolbar stuff, don't forget to set the name ---
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("S Building");
+        toolbar.setTitle("A Building");
         setSupportActionBar(toolbar);
 
         // --- Layouts ---
@@ -30,24 +30,26 @@ public class SBuilding extends AppActivityBuilderMethods {
         LinearLayout bodyLayout = (LinearLayout) findViewById(R.id.bodyLayout);
 
         // --- Variables ---
-        String info = "The S building is home to the science division." +
-                " There is a state of the art biology and chemistry equipment for classes and clubs." +
-                " The science study center provides tutors for many science topics."; //will want to alter later
+        String info = "The A building is home to the IBIT division office, administrative services " +
+                "offices, the BC Foundation, IT office, Institutional Advancement, and the college " +
+                "relations office. While the G Building is under construction, the A Building also houses " +
+                "the fitness center. \n\n" +
+                "ITS service office is located in A109";
 
         // --- topLayout ---
-        titleBuilder("S Building", topLayout);
+        titleBuilder("A Building", topLayout);
         isAccessible(topLayout);
         hasHelp(topLayout);
         hasComputers(topLayout);
 
+
         // --- bodyLayout ---
         textViewBuilder(info, bodyLayout);
-        linkButtonBuilder("Science Division Website", "https://www.bellevuecollege.edu/science/", true, bodyLayout);
-        linkButtonBuilder("Science Clubs", "https://www.bellevuecollege.edu/science/clubs/", true, bodyLayout);
-        activityButtonBuilder("Departments", SBuilding.this, SScienceDepartments.class, false, bodyLayout);
-        activityButtonBuilder("Advising", SBuilding.this, SScienceAdvising.class, false, bodyLayout);
-        activityButtonBuilder("Science Study Center", SBuilding.this, SScienceStudyCenter.class, false, bodyLayout);
-        activityButtonBuilder("Classes in Building", SBuilding.this, SCurrentClasses.class, false, bodyLayout);
+
+        phoneBuilder(" ITS service ", "(425) 564-4357", bodyLayout);
+        activityButtonBuilder("BC Foundation", ABuilding.this, ABCFoundation.class, false, bodyLayout);
+        activityButtonBuilder("IBIT", ABuilding.this, AIBIT.class, false, bodyLayout);
+        activityButtonBuilder("Classes in Building", ABuilding.this, ACurrentClasses.class, false, bodyLayout);
     }
 
 }

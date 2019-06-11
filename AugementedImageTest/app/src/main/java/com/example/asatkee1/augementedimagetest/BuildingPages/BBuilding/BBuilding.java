@@ -1,4 +1,4 @@
-package com.example.asatkee1.augementedimagetest.BuildingPages.SBuilding;
+package com.example.asatkee1.augementedimagetest.BuildingPages.BBuilding;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import com.example.asatkee1.augementedimagetest.BuildingPages.AppActivityBuilderMethods;
 import com.example.asatkee1.augementedimagetest.R;
 
-public class SBuilding extends AppActivityBuilderMethods {
+public class BBuilding extends AppActivityBuilderMethods {
     // Put in the URL this activity will be parsing from.
     private final String THIS_ONES_URL = "";
 
@@ -22,7 +22,7 @@ public class SBuilding extends AppActivityBuilderMethods {
 
         // --- Toolbar stuff, don't forget to set the name ---
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("S Building");
+        toolbar.setTitle("B Building");
         setSupportActionBar(toolbar);
 
         // --- Layouts ---
@@ -30,24 +30,25 @@ public class SBuilding extends AppActivityBuilderMethods {
         LinearLayout bodyLayout = (LinearLayout) findViewById(R.id.bodyLayout);
 
         // --- Variables ---
-        String info = "The S building is home to the science division." +
-                " There is a state of the art biology and chemistry equipment for classes and clubs." +
-                " The science study center provides tutors for many science topics."; //will want to alter later
+        String info = "The B building is home to Student Central, the bookstore, registration, financial aid, " +
+                "the planetarium, academic advising, the Center for Career Connections, the counseling center, " +
+                "and the International Education and Global Initiative. \n\n " +
+                "Student Central is the best place to start with all questions. They can direct to " +
+                "the correct resources as needed. ";
 
         // --- topLayout ---
-        titleBuilder("S Building", topLayout);
+        titleBuilder("B Building", topLayout);
         isAccessible(topLayout);
         hasHelp(topLayout);
         hasComputers(topLayout);
 
+
         // --- bodyLayout ---
         textViewBuilder(info, bodyLayout);
-        linkButtonBuilder("Science Division Website", "https://www.bellevuecollege.edu/science/", true, bodyLayout);
-        linkButtonBuilder("Science Clubs", "https://www.bellevuecollege.edu/science/clubs/", true, bodyLayout);
-        activityButtonBuilder("Departments", SBuilding.this, SScienceDepartments.class, false, bodyLayout);
-        activityButtonBuilder("Advising", SBuilding.this, SScienceAdvising.class, false, bodyLayout);
-        activityButtonBuilder("Science Study Center", SBuilding.this, SScienceStudyCenter.class, false, bodyLayout);
-        activityButtonBuilder("Classes in Building", SBuilding.this, SCurrentClasses.class, false, bodyLayout);
+
+        phoneBuilder(" Student Central", "(425) 564-1000", bodyLayout);
+        linkButtonBuilder("Student Central Website", "https://www.bellevuecollege.edu/studentcentral/", true, bodyLayout);
+        activityButtonBuilder("Classes in Building", BBuilding.this, BCurrentClasses.class, false, bodyLayout);
     }
 
 }

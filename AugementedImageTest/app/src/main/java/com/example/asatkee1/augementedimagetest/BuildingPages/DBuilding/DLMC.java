@@ -1,4 +1,4 @@
-package com.example.asatkee1.augementedimagetest.BuildingPages.SBuilding;
+package com.example.asatkee1.augementedimagetest.BuildingPages.DBuilding;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,7 +8,7 @@ import com.example.asatkee1.augementedimagetest.BuildingPages.AppActivityBuilder
 import com.example.asatkee1.augementedimagetest.R;
 
 
-public class SScienceAdvising extends AppActivityBuilderMethods {
+public class DLMC extends AppActivityBuilderMethods {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class SScienceAdvising extends AppActivityBuilderMethods {
 
         // --- Toolbar stuff, don't forget to set the name ---
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Science Advising");
+        toolbar.setTitle("Library & Media Center");
         setSupportActionBar(toolbar);
 
         // --- Gotta put these in the onCreate method ---
@@ -28,20 +28,17 @@ public class SScienceAdvising extends AppActivityBuilderMethods {
 
 
         // --- topLayout ---
-        subTitleBuilder("Science Advising", topLayout);
+        subTitleBuilder("Library & Media Center", topLayout);
 
-        phoneBuilder(" science advising ", "(425)564-2321", bodyLayout);
-
-        String info = "Call to schedule a one on one advising session.\n\n" +
-                "Same day appointments are available most Tuesdays and Wednesdays. Sign ups for " +
-                "same day appointments start in the morning. Come to L200 to sign up for a time. \n\n" +
-                "Group advising sessions are available for certain science majors. Information and sign ups are " +
-                "available on the Science Advising website. \n";
+        String info = "The Library & Media Center is located in D126. \n\n" +
+                "There are books to borrow including textbooks for checkout or in library use. The library is set up " +
+                "with study rooms, and computers. This is also the location of the XR Lab.";
 
         // --- bodyLayout ---
         textViewBuilder(info, bodyLayout);
-        linkButtonBuilder("Website", "https://www.bellevuecollege.edu/science/advising/", true, bodyLayout);
-
+        phoneBuilder("Circulation Desk", "(425) 564-2252", bodyLayout);
+        linkButtonBuilder("LMC Website", "https://www.bellevuecollege.edu/lmc/", true, bodyLayout);
 
     }
+
 }

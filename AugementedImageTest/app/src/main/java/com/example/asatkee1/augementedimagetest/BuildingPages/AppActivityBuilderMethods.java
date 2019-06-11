@@ -73,6 +73,7 @@ public class AppActivityBuilderMethods extends AppCompatActivity {
         TextView view = new TextView(this);
         view.setText(string);
         view.setTextSize(18);
+        view.setTextColor(Color.BLACK);
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         view.setPadding(10,10,10,10);
 
@@ -166,6 +167,7 @@ public class AppActivityBuilderMethods extends AppCompatActivity {
         view.setText("Click to dial " + information + " \nat: " + number);
         view.setTextSize(15);
         view.setHeight(175);
+        view.setTextColor(Color.BLACK);
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         view.setPadding(50,40,30,20);
 
@@ -309,8 +311,9 @@ public class AppActivityBuilderMethods extends AppCompatActivity {
                 return true;
             case R.id.back_button:
                 //Intent startBackActivityIntent = new Intent(this, BuildingSelect.class);
-                Intent startBackActivityIntent = new Intent(this, RBuilding.class);
-                startActivity(startBackActivityIntent);
+//                Intent startBackActivityIntent = new Intent(this, RBuilding.class);
+//                startActivity(startBackActivityIntent);
+                finish();
                 return true;
             default:
                 // This means that the pressed button wasn't recognized

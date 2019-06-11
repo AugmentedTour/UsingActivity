@@ -1,4 +1,4 @@
-package com.example.asatkee1.augementedimagetest.BuildingPages.SBuilding;
+package com.example.asatkee1.augementedimagetest.BuildingPages.ABuilding;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import com.example.asatkee1.augementedimagetest.BuildingPages.AppActivityBuilder
 import com.example.asatkee1.augementedimagetest.R;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.IOUtils.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,7 +21,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 
-public class SCurrentClasses extends AppActivityBuilderMethods {
+public class ACurrentClasses extends AppActivityBuilderMethods {
     TextView class_list = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class SCurrentClasses extends AppActivityBuilderMethods {
 
         // --- Toolbar stuff, don't forget to set the name ---
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("S Building Classes");
+        toolbar.setTitle("A Building Classes");
         setSupportActionBar(toolbar);
 
         // --- Gotta put these in the onCreate method ---
@@ -42,7 +41,7 @@ public class SCurrentClasses extends AppActivityBuilderMethods {
 
 
         // --- topLayout ---
-        subTitleBuilder("Current Classes in the S Building", topLayout);
+        subTitleBuilder("Current Classes in the A Building", topLayout);
 
 
         // --- bodyLayout ---
@@ -50,8 +49,10 @@ public class SCurrentClasses extends AppActivityBuilderMethods {
 
         class_list = textViewBuilder("Loading...", bodyLayout);
         // --- Async task ---
-        final String[] deptlist = {"BIOL","BIOL&",
-                "CHEM", "CHEM&" ,"ENVS", "MBS", "ENVS&", "NUTR", "NUTR&", "OCCEA", "OCEA&", "SOC", "SOC&", "STEM" };
+        final String[] deptlist = {"ACCT", "BUSIT", "BTS", "CHIN", "CHIN&", "CMST", "CMST&", "CS", "DA",
+                                    "FRCH", "FRCH&", "DBA", "DMA", "ECON", "ECON&", "ENGL", "ENGL&", "GERM",
+                                     "GERM&", "HSC", "IT", "ISIT", "JAPN", "JAPN&", "MATH", "MATH&", "MUSC",
+                                     "MUSC&", "NSCOM", "PROG", "PSYC", "PSYC&", "SPAN", "SPAN&", "TECH", "TRANS"};
         GetInfoTask task = new GetInfoTask();
         task.setCourseTextView(class_list);
         task.setDepartmentList(deptlist);
@@ -65,7 +66,7 @@ public class SCurrentClasses extends AppActivityBuilderMethods {
         String[] course_prefix_list;
         public void setCourseTextView(TextView tv) { class_view = tv; }
         public void setDepartmentList(String[] slugs) {
-              course_prefix_list = slugs;
+            course_prefix_list = slugs;
         }
         public String[] getDepartmentList() { return course_prefix_list; };
 
@@ -103,7 +104,7 @@ public class SCurrentClasses extends AppActivityBuilderMethods {
                                     JSONObject offer = offered_arr.getJSONObject(m);
 
                                     String room = offer.getString("Room");
-                                    if (room.charAt(0) == 'S') {
+                                    if (room.charAt(0) == 'A') {
                                         in_building = true;
                                         break;
                                     }
@@ -137,7 +138,6 @@ public class SCurrentClasses extends AppActivityBuilderMethods {
             }
             return null;
         }
-
 
         protected void onPostExecute(String[] result) {
             String text = "";
