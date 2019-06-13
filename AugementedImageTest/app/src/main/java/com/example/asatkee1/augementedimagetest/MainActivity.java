@@ -18,11 +18,17 @@ import android.widget.Toast;
 
 import com.example.asatkee1.augementedimagetest.BuildingPages.ABuilding.ABuilding;
 import com.example.asatkee1.augementedimagetest.BuildingPages.BBuilding.BBuilding;
+import com.example.asatkee1.augementedimagetest.BuildingPages.CBuilding.CBuilding;
 import com.example.asatkee1.augementedimagetest.BuildingPages.DBuilding.DBuilding;
+import com.example.asatkee1.augementedimagetest.BuildingPages.EBuilding.EBuilding;
+import com.example.asatkee1.augementedimagetest.BuildingPages.FBuilding.FBuilding;
+import com.example.asatkee1.augementedimagetest.BuildingPages.GBuilding.GBuilding;
+import com.example.asatkee1.augementedimagetest.BuildingPages.KBuilding.KBuilding;
 import com.example.asatkee1.augementedimagetest.BuildingPages.LBuilding.LBuilding;
 import com.example.asatkee1.augementedimagetest.BuildingPages.NBuilding.NBuilding;
 import com.example.asatkee1.augementedimagetest.BuildingPages.RBuilding.RBuilding;
 import com.example.asatkee1.augementedimagetest.BuildingPages.SBuilding.SBuilding;
+import com.example.asatkee1.augementedimagetest.BuildingPages.TBuilding.TBuilding;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.ArCoreApk;
 import com.google.ar.core.AugmentedImageDatabase;
@@ -71,17 +77,24 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewRenderable aBuildingRenderable;
     private ViewRenderable bBuildingRenderable;
+    private ViewRenderable cBuildingRenderable;
     private ViewRenderable dBuildingRenderable;
+    private ViewRenderable eBuildingRenderable;
+    private ViewRenderable fBuildingRenderable;
+    private ViewRenderable gBuildingRenderable;
+    private ViewRenderable kBuildingRenderable;
     private ViewRenderable lBuildingRenderable;
     private ViewRenderable nBuildingRenderable;
     private ViewRenderable rBuildingRenderable;
     private ViewRenderable sBuildingRenderable;
+    private ViewRenderable tBuildingRenderable;
 
     private ArSceneView arSceneView;
     private boolean installRequested;
     private boolean hasFinishedLoading = false;
 
     private LocationMarker shown = null;
+    private int maxDistance = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,9 +139,34 @@ public class MainActivity extends AppCompatActivity {
                         .setView(this, R.layout.b_building_object)
                         .build();
 
+        CompletableFuture<ViewRenderable> cBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.c_building_object)
+                        .build();
+
         CompletableFuture<ViewRenderable> dBuilding =
                 ViewRenderable.builder()
                         .setView(this, R.layout.d_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> eBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.e_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> fBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.f_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> gBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.g_building_object)
+                        .build();
+
+        CompletableFuture<ViewRenderable> kBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.k_building_object)
                         .build();
 
         CompletableFuture<ViewRenderable> lBuilding =
@@ -151,6 +189,11 @@ public class MainActivity extends AppCompatActivity {
                         .setView(this, R.layout.s_building_object)
                         .build();
 
+        CompletableFuture<ViewRenderable> tBuilding =
+                ViewRenderable.builder()
+                        .setView(this, R.layout.t_building_object)
+                        .build();
+
         CompletableFuture.allOf(andy, exampleLayout )
                 .handle(
                         (notUsed, throwable) ->
@@ -164,11 +207,17 @@ public class MainActivity extends AppCompatActivity {
                                 //build buildings
                                 aBuildingRenderable = aBuilding.get();
                                 bBuildingRenderable = bBuilding.get();
+                                cBuildingRenderable = cBuilding.get();
                                 dBuildingRenderable = dBuilding.get();
+                                eBuildingRenderable = eBuilding.get();
+                                fBuildingRenderable = fBuilding.get();
+                                gBuildingRenderable = gBuilding.get();
+                                kBuildingRenderable = kBuilding.get();
                                 lBuildingRenderable = lBuilding.get();
                                 nBuildingRenderable = nBuilding.get();
                                 rBuildingRenderable = rBuilding.get();
                                 sBuildingRenderable = sBuilding.get();
+                                tBuildingRenderable = tBuilding.get();
 
                                 //Toast.makeText(this, "I see the marker", Toast.LENGTH_SHORT).show();
                                 exampleLayoutRenderable = exampleLayout.get();
@@ -238,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                 markersL.add(locationMarkerL3);
                 markersL.add(locationMarkerL4);
 
-                new SingletonGroup(locationScene, arFragment, markersL, "Group1", 70);
+                new SingletonGroup(locationScene, arFragment, markersL, "Group1", maxDistance);
 
                 locationScene.mLocationMarkers.addAll(markersL);
 
@@ -305,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
                 markersR.add(locationMarkerR4);
                 markersR.add(locationMarkerR5);
 
-                new SingletonGroup(locationScene, arFragment, markersR, "Group2", 70);
+                new SingletonGroup(locationScene, arFragment, markersR, "Group2", maxDistance);
                 locationScene.mLocationMarkers.addAll(markersR);
 
 
@@ -376,7 +425,7 @@ public class MainActivity extends AppCompatActivity {
                 markersB.add(locationMarkerB5);
                 markersB.add(locationMarkerB6);
 
-                new SingletonGroup(locationScene, arFragment, markersB, "Group3", 70);
+                new SingletonGroup(locationScene, arFragment, markersB, "Group3", maxDistance);
 
                 locationScene.mLocationMarkers.addAll(markersB);
 
@@ -430,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
                     markersS.add(locationMarkerS4);
                     markersS.add(locationMarkerS5);
 
-                    new SingletonGroup(locationScene, arFragment, markersS, "Group4", 70);
+                    new SingletonGroup(locationScene, arFragment, markersS, "Group4", maxDistance);
                     locationScene.mLocationMarkers.addAll(markersS);
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -528,7 +577,7 @@ public class MainActivity extends AppCompatActivity {
                 markersA.add(locationMarkerA8);
                 markersA.add(locationMarkerA9);
 
-                new SingletonGroup(locationScene, arFragment, markersA, "Group5", 70);
+                new SingletonGroup(locationScene, arFragment, markersA, "Group5", maxDistance);
                 locationScene.mLocationMarkers.addAll(markersA);
 
 
@@ -617,7 +666,7 @@ public class MainActivity extends AppCompatActivity {
                 markersD.add(locationMarkerD8);
                 markersD.add(locationMarkerD9);
 
-                new SingletonGroup(locationScene, arFragment, markersD, "Group6", 70);
+                new SingletonGroup(locationScene, arFragment, markersD, "Group6", maxDistance);
                 locationScene.mLocationMarkers.addAll(markersD);
 
 /////////////////////////////////////////////////////////////////////////////
@@ -681,8 +730,359 @@ public class MainActivity extends AppCompatActivity {
                 markersD.add(locationMarkerN6);
                 markersD.add(locationMarkerN7);
 
-                new SingletonGroup(locationScene, arFragment, markersN, "Group7", 70);
+                new SingletonGroup(locationScene, arFragment, markersN, "Group7", maxDistance);
                 locationScene.mLocationMarkers.addAll(markersN);
+
+
+                        ////////////////////////////////////////////////////////////////////////////////
+//              //F building
+                        List<LocationMarker> markersF =
+                                new ArrayList<>(10);
+
+                        double startFLat = 47.58532;
+                        double lastFLat = 47.58515;
+                        for(double j = startFLat; j > lastFLat; j-= 0.00001){
+                            LocationMarker locationMarkerF =
+                                    new LocationMarker(
+                                            -122.150496,
+                                            j,
+                                            getBuildingXML(fBuildingRenderable, FBuilding.class));
+                            markersF.add(locationMarkerF);
+                        }
+
+                        //corner's markers
+                        LocationMarker locationMarkerF1 =
+                                new LocationMarker(
+                                        -122.150572,
+                                        47.585311,
+                                        getBuildingXML(fBuildingRenderable, FBuilding.class));
+                        LocationMarker locationMarkerF2 =
+                                new LocationMarker(
+                                        -122.150411,
+                                        47.585311,
+                                        getBuildingXML(fBuildingRenderable, FBuilding.class));
+                        LocationMarker locationMarkerF3 =
+                                new LocationMarker(
+                                        -122.150407,
+                                        47.585156,
+                                        getBuildingXML(fBuildingRenderable, FBuilding.class));
+                        LocationMarker locationMarkerF4 =
+                                new LocationMarker(
+                                        -122.150580,
+                                        47.585156,
+                                        getBuildingXML(fBuildingRenderable, FBuilding.class));
+
+                        markersF.add(locationMarkerF1);
+                        markersF.add(locationMarkerF2);
+                        markersF.add(locationMarkerF3);
+                        markersF.add(locationMarkerF4);
+
+                        new SingletonGroup(locationScene, arFragment, markersF, "Group8", maxDistance);
+                        locationScene.mLocationMarkers.addAll(markersF);
+
+////////////////////////////////////////////////////////////////////////////////
+//                     //E building
+                        List<LocationMarker> markersE =
+                                new ArrayList<>(10);
+
+                        double startELat = 47.58354;
+                        double lastELat = 47.58295;
+                        for(double j = startELat; j > lastELat; j-= 0.00001){
+                            LocationMarker locationMarkerE =
+                                    new LocationMarker(
+                                            -122.14944,
+                                            j,
+                                            getBuildingXML(eBuildingRenderable, EBuilding.class));
+                            markersE.add(locationMarkerE);
+                        }
+
+                        //corner's markers
+                        LocationMarker locationMarkerE1 =
+                                new LocationMarker(
+                                        -122.149320,
+                                        47.583493,
+                                        getBuildingXML(eBuildingRenderable, EBuilding.class));
+                        LocationMarker locationMarkerE2 =
+                                new LocationMarker(
+                                        -122.149198,
+                                        47.583257,
+                                        getBuildingXML(eBuildingRenderable, EBuilding.class));
+                        LocationMarker locationMarkerE3 =
+                                new LocationMarker(
+                                        -122.149041,
+                                        47.583250,
+                                        getBuildingXML(eBuildingRenderable, EBuilding.class));
+                        LocationMarker locationMarkerE4 =
+                                new LocationMarker(
+                                        -122.148991,
+                                        47.583071,
+                                        getBuildingXML(eBuildingRenderable, EBuilding.class));
+                        LocationMarker locationMarkerE5 =
+                                new LocationMarker(
+                                        -122.149106,
+                                        47.582944,
+                                        getBuildingXML(eBuildingRenderable, EBuilding.class));
+                        LocationMarker locationMarkerE6 =
+                                new LocationMarker(
+                                        -122.149635,
+                                        47.583154,
+                                        getBuildingXML(eBuildingRenderable, EBuilding.class));
+                        LocationMarker locationMarkerE7 =
+                                new LocationMarker(
+                                        -122.149654,
+                                        47.583389,
+                                        getBuildingXML(eBuildingRenderable, EBuilding.class));
+
+                        markersE.add(locationMarkerE1);
+                        markersE.add(locationMarkerE2);
+                        markersE.add(locationMarkerE3);
+                        markersE.add(locationMarkerE4);
+                        markersE.add(locationMarkerE5);
+                        markersE.add(locationMarkerE6);
+                        markersE.add(locationMarkerE7);
+
+                        new SingletonGroup(locationScene, arFragment, markersE, "Group9", maxDistance);
+                        locationScene.mLocationMarkers.addAll(markersE);
+
+                        ////////////////////////////////////////////////////////////////////////////////
+//                     //C building
+                        List<LocationMarker> markersC =
+                                new ArrayList<>(10);
+
+                        double startCLat = 47.58540;
+                        double lastCLat = 47.584483;
+                        for(double j = startELat; j > lastCLat; j-= 0.00001){
+                            LocationMarker locationMarkerC =
+                                    new LocationMarker(
+                                            -122.14980,
+                                            j,
+                                            getBuildingXML(cBuildingRenderable, CBuilding.class));
+                            markersC.add(locationMarkerC);
+                        }
+
+                        //corner's markers
+                        LocationMarker locationMarkerC1 =
+                                new LocationMarker(
+                                        -122.149424,
+                                        47.585398,
+                                        getBuildingXML(cBuildingRenderable, CBuilding.class));
+                        LocationMarker locationMarkerC2 =
+                                new LocationMarker(
+                                        -122.149430,
+                                        47.585257,
+                                        getBuildingXML(cBuildingRenderable, CBuilding.class));
+                        LocationMarker locationMarkerC3 =
+                                new LocationMarker(
+                                        -122.149424,
+                                        47.585083,
+                                        getBuildingXML(cBuildingRenderable, CBuilding.class));
+                        LocationMarker locationMarkerC4 =
+                                new LocationMarker(
+                                        -122.149639,
+                                        47.585073,
+                                        getBuildingXML(cBuildingRenderable, CBuilding.class));
+                        LocationMarker locationMarkerC5 =
+                                new LocationMarker(
+                                        -122.149553,
+                                        47.584490,
+                                        getBuildingXML(cBuildingRenderable, CBuilding.class));
+                        LocationMarker locationMarkerC6 =
+                                new LocationMarker(
+                                        -122.150267,
+                                        47.584486,
+                                        getBuildingXML(cBuildingRenderable, CBuilding.class));
+                        LocationMarker locationMarkerC7 =
+                                new LocationMarker(
+                                        -122.150331,
+                                        47.584808,
+                                        getBuildingXML(cBuildingRenderable, CBuilding.class));
+                        LocationMarker locationMarkerC8 =
+                                new LocationMarker(
+                                        -122.150154,
+                                        47.585272,
+                                        getBuildingXML(cBuildingRenderable, CBuilding.class));
+
+                        markersC.add(locationMarkerC1);
+                        markersC.add(locationMarkerC2);
+                        markersC.add(locationMarkerC3);
+                        markersC.add(locationMarkerC4);
+                        markersC.add(locationMarkerC5);
+                        markersC.add(locationMarkerC6);
+                        markersC.add(locationMarkerC7);
+                        markersC.add(locationMarkerC8);
+
+                        new SingletonGroup(locationScene, arFragment, markersC, "Group10", maxDistance);
+                        locationScene.mLocationMarkers.addAll(markersC);
+
+////////////////////////////////////////////////////////////////////////////////
+//                     //K building
+                        List<LocationMarker> markersK =
+                                new ArrayList<>(10);
+
+                        double startKLat = 47.58711;
+                        double lastKLat = 47.58657;
+                        for(double j = startKLat; j > lastKLat; j-= 0.00001){
+                            LocationMarker locationMarkerK =
+                                    new LocationMarker(
+                                            -122.15021,
+                                            j,
+                                            getBuildingXML(kBuildingRenderable, KBuilding.class));
+                            markersE.add(locationMarkerK);
+                        }
+
+                        //corner's markers
+                        LocationMarker locationMarkerK1 =
+                                new LocationMarker(
+                                        -122.150373,
+                                        47.587108,
+                                        getBuildingXML(kBuildingRenderable, KBuilding.class));
+                        LocationMarker locationMarkerK2 =
+                                new LocationMarker(
+                                        -122.150056,
+                                        47.587101,
+                                        getBuildingXML(kBuildingRenderable, KBuilding.class));
+                        LocationMarker locationMarkerK3 =
+                                new LocationMarker(
+                                        -122.150040,
+                                        47.586580,
+                                        getBuildingXML(kBuildingRenderable, KBuilding.class));
+                        LocationMarker locationMarkerK4 =
+                                new LocationMarker(
+                                        -122.150357,
+                                        47.586580,
+                                        getBuildingXML(kBuildingRenderable, KBuilding.class));
+
+                        markersK.add(locationMarkerK1);
+                        markersK.add(locationMarkerK2);
+                        markersK.add(locationMarkerK3);
+                        markersK.add(locationMarkerK4);
+
+                        new SingletonGroup(locationScene, arFragment, markersK, "Group11", maxDistance);
+                        locationScene.mLocationMarkers.addAll(markersK);
+
+
+////////////////////////////////////////////////////////////////////////////////
+//                     //G building
+
+                        List<LocationMarker> markersG =
+                                new ArrayList<>(10);
+
+                        double startGLat = 47.58710;
+                        double lastGLat = 47.58641;
+                        for(double j = startGLat; j > lastGLat; j-= 0.00001){
+                            LocationMarker locationMarkerG =
+                                    new LocationMarker(
+                                            -122.14934,
+                                            j,
+                                            getBuildingXML(gBuildingRenderable, GBuilding.class));
+                            markersE.add(locationMarkerG);
+                        }
+
+                        //corner's markers
+                        LocationMarker locationMarkerG1 =
+                                new LocationMarker(
+                                        -122.149788,
+                                        47.586956,
+                                        getBuildingXML(gBuildingRenderable, GBuilding.class));
+                        LocationMarker locationMarkerG2 =
+                                new LocationMarker(
+                                        -122.148849,
+                                        47.587097,
+                                        getBuildingXML(gBuildingRenderable, GBuilding.class));
+                        LocationMarker locationMarkerG3 =
+                                new LocationMarker(
+                                        -122.148790,
+                                        47.586663,
+                                        getBuildingXML(gBuildingRenderable, GBuilding.class));
+                        LocationMarker locationMarkerG4 =
+                                new LocationMarker(
+                                        -122.149777,
+                                        47.586435,
+                                        getBuildingXML(gBuildingRenderable, GBuilding.class));
+                        LocationMarker locationMarkerG5 =
+                                new LocationMarker(
+                                        -122.149772,
+                                        47.586960,
+                                        getBuildingXML(gBuildingRenderable, GBuilding.class));
+
+                        markersG.add(locationMarkerG1);
+                        markersG.add(locationMarkerG2);
+                        markersG.add(locationMarkerG3);
+                        markersG.add(locationMarkerG4);
+                        markersG.add(locationMarkerG5);
+
+                        new SingletonGroup(locationScene, arFragment, markersG, "Group11", maxDistance);
+                        locationScene.mLocationMarkers.addAll(markersG);
+
+/////////////////////////////////////////////////////////////////////////////
+//                      //T building
+                        List<LocationMarker> markersT =
+                                new ArrayList<>(2);
+
+                        double startTLong = -122.14704;
+                        double lastTLong = -122.14792;
+                        for(double j = startTLong; j > lastTLong; j-= 0.00001){
+                            LocationMarker locationMarkerT =
+                                    new LocationMarker(
+                                            j,
+                                            47.58416,
+                                            getBuildingXML(tBuildingRenderable, TBuilding.class));
+                            markersR.add(locationMarkerT);
+                        }
+
+                        double startTLat = 47.58426;
+                        double lastTLat = 47.583692;
+                        for(double j = startTLat; j > lastTLat; j-= 0.00001){
+                            LocationMarker locationMarkerT =
+                                    new LocationMarker(
+                                            -122.14764,
+                                            j,
+                                            getBuildingXML(tBuildingRenderable, TBuilding.class));
+                            markersR.add(locationMarkerT);
+                        }
+
+
+                        //corner's markers
+                        LocationMarker locationMarkerT1 =
+                                new LocationMarker(
+                                        -122.147910,
+                                        47.584264,
+                                        getBuildingXML(tBuildingRenderable, TBuilding.class));
+                        LocationMarker locationMarkerT2 =
+                                new LocationMarker(
+                                        -122.147052,
+                                        47.584249,
+                                        getBuildingXML(tBuildingRenderable, TBuilding.class));
+                        LocationMarker locationMarkerT3 =
+                                new LocationMarker(
+                                        -122.147057,
+                                        47.584090,
+                                        getBuildingXML(tBuildingRenderable, TBuilding.class));
+                        LocationMarker locationMarkerT4 =
+                                new LocationMarker(
+                                        -122.147470,
+                                        47.583692,
+                                        getBuildingXML(tBuildingRenderable, TBuilding.class));
+                        LocationMarker locationMarkerT5 =
+                                new LocationMarker(
+                                        -122.147749,
+                                        47.583699,
+                                        getBuildingXML(tBuildingRenderable, TBuilding.class));
+                        LocationMarker locationMarkerT6 =
+                                new LocationMarker(
+                                        -122.147921,
+                                        47.584177,
+                                        getBuildingXML(tBuildingRenderable, TBuilding.class));
+
+
+                        markersR.add(locationMarkerT1);
+                        markersR.add(locationMarkerT2);
+                        markersR.add(locationMarkerT3);
+                        markersR.add(locationMarkerT4);
+                        markersR.add(locationMarkerT5);
+
+                        new SingletonGroup(locationScene, arFragment, markersT, "Group12", maxDistance);
+                        locationScene.mLocationMarkers.addAll(markersT);
 
                 }
 

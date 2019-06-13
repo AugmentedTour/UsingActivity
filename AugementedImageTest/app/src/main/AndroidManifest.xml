@@ -46,11 +46,19 @@
             android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity android:name=".BuildingPages.ABuilding.AIBIT"
             android:theme="@style/Theme.AppCompat.Translucent"/>
+
         <!-- B building -->
         <activity android:name=".BuildingPages.BBuilding.BBuilding"
             android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity android:name=".BuildingPages.BBuilding.BCurrentClasses"
             android:theme="@style/Theme.AppCompat.Translucent"/>
+
+        <!-- C building -->
+        <activity android:name=".BuildingPages.CBuilding.CBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.CBuilding.CCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
         <!-- D building -->
         <activity android:name=".BuildingPages.DBuilding.DBuilding"
             android:theme="@style/Theme.AppCompat.Translucent"/>
@@ -62,6 +70,27 @@
             android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity android:name=".BuildingPages.DBuilding.DSafety"
             android:theme="@style/Theme.AppCompat.Translucent"/>
+
+        <!-- E building -->
+        <activity android:name=".BuildingPages.EBuilding.EBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.EBuilding.ECurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
+        <!-- F building -->
+        <activity android:name=".BuildingPages.FBuilding.FBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
+        <!-- G building -->
+        <activity android:name=".BuildingPages.GBuilding.GBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.GBuilding.GCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
+        <!-- K building -->
+        <activity android:name=".BuildingPages.KBuilding.KBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
         <!-- L building -->
         <activity android:name=".BuildingPages.LBuilding.LBuilding"
             android:theme="@style/Theme.AppCompat.Translucent"/>
@@ -106,6 +135,14 @@
         <activity android:name=".BuildingPages.SBuilding.SScienceStudyCenter"
             android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity android:name=".BuildingPages.SBuilding.SCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
+        <!-- T building -->
+        <activity android:name=".BuildingPages.TBuilding.TBuilding"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.TBuilding.TCurrentClasses"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".BuildingPages.TBuilding.THealthAdvising"
             android:theme="@style/Theme.AppCompat.Translucent"/>
     </application>
 
